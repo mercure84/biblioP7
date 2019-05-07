@@ -8,7 +8,7 @@ import java.util.Date;
 public class Member {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private int id;
 
@@ -84,5 +84,32 @@ public class Member {
 
     public void setCellPhoneNb(String cellPhoneNb) {
         this.cellPhoneNb = cellPhoneNb;
+    }
+
+
+    public Member(String name, String firstName, String email, String encryptedPassword, Date dateInscription, String cellPhoneNb) {
+        this.name = name;
+        this.firstName = firstName;
+        this.email = email;
+        this.encryptedPassword = encryptedPassword;
+        this.dateInscription = dateInscription;
+        this.cellPhoneNb = cellPhoneNb;
+    }
+
+
+    public Member() {
+    }
+
+    @Override
+    public String toString() {
+        return "Member{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", email='" + email + '\'' +
+                ", encryptedPassword='" + encryptedPassword + '\'' +
+                ", dateInscription=" + dateInscription +
+                ", cellPhoneNb='" + cellPhoneNb + '\'' +
+                '}';
     }
 }
