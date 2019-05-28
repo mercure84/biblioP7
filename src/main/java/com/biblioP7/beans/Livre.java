@@ -25,8 +25,8 @@ public class Livre {
     @Column(name="editeur")
     private String editeur;
 
-    @Column(name="categorie")
-    private String categorie;
+    @Column(name="collection")
+    private String collection;
 
     @Column(name="etiquette")
     private String etiquette;
@@ -83,12 +83,12 @@ public class Livre {
         this.editeur = editeur;
     }
 
-    public String getCategorie() {
-        return categorie;
+    public String collection() {
+        return collection;
     }
 
-    public void setCategorie(String categorie) {
-        this.categorie = categorie;
+    public void collection(String collection) {
+        this.collection = collection;
     }
 
     public String getEtiquette() {
@@ -119,7 +119,7 @@ public class Livre {
                 ", auteurNom='" + auteurNom + '\'' +
                 ", auteurPrenom='" + auteurPrenom + '\'' +
                 ", editeur='" + editeur + '\'' +
-                ", categorie='" + categorie + '\'' +
+                ", collection='" + collection + '\'' +
                 ", etiquette='" + etiquette + '\'' +
                 ", disponible=" + disponible +
                 '}';

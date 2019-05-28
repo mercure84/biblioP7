@@ -25,7 +25,7 @@ public class LivreController {
         return livreDao.findById(id);
     }
 
-    @PostMapping(value="/addBook")
+    @PostMapping(value="/ajouterLivre")
     public void ajouterLivre(@RequestBody Livre livre){
         livreDao.save(livre);
     }
