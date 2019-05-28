@@ -1,16 +1,16 @@
 package com.biblioP7.dao;
 
-import com.biblioP7.beans.Book;
+import com.biblioP7.beans.Livre;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface BookDao extends JpaRepository<Book, Integer> {
+public interface LivreDao extends JpaRepository<Livre, Integer> {
 
-    Book findById(int it);
-    List<Book> findBooksByAuthor(String author);
+    Livre findById(int it);
+    List<Livre> findBooksByAuthor(String author);
 
 
 }

@@ -4,19 +4,19 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name="member")
-public class Member {
+@Table(name="membre")
+public class Membre {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id")
     private int id;
 
-    @Column(name="name")
-    private String name;
+    @Column(name="nom")
+    private String nom;
 
-    @Column(name="firstname")
-    private String firstName;
+    @Column(name="prenom")
+    private String prenom;
 
     @Column(name="email")
     private String email;
@@ -27,8 +27,8 @@ public class Member {
     @Column(name="dateinscription")
     private Date dateInscription;
 
-    @Column(name="cellphonenb")
-    private String cellPhoneNb;
+    @Column(name="portable")
+    private String portable;
 
     public int getId() {
         return id;
@@ -38,20 +38,20 @@ public class Member {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNom() {
+        return nom;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getPrenom() {
+        return prenom;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
     }
 
     public String getEmail() {
@@ -78,38 +78,27 @@ public class Member {
         this.dateInscription = dateInscription;
     }
 
-    public String getCellPhoneNb() {
-        return cellPhoneNb;
+    public String getPortable() {
+        return portable;
     }
 
-    public void setCellPhoneNb(String cellPhoneNb) {
-        this.cellPhoneNb = cellPhoneNb;
+    public void setPortable(String portable) {
+        this.portable = portable;
     }
 
-
-    public Member(String name, String firstName, String email, String encryptedPassword, Date dateInscription, String cellPhoneNb) {
-        this.name = name;
-        this.firstName = firstName;
-        this.email = email;
-        this.encryptedPassword = encryptedPassword;
-        this.dateInscription = dateInscription;
-        this.cellPhoneNb = cellPhoneNb;
-    }
-
-
-    public Member() {
+    public Membre() {
     }
 
     @Override
     public String toString() {
-        return "Member{" +
+        return "Membre{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", firstName='" + firstName + '\'' +
+                ", nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
                 ", email='" + email + '\'' +
                 ", encryptedPassword='" + encryptedPassword + '\'' +
                 ", dateInscription=" + dateInscription +
-                ", cellPhoneNb='" + cellPhoneNb + '\'' +
+                ", portable='" + portable + '\'' +
                 '}';
     }
 }
