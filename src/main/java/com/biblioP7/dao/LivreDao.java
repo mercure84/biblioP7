@@ -10,6 +10,7 @@ import java.util.List;
 public interface LivreDao extends JpaRepository<Livre, Integer> {
 
     Livre findById(int it);
+    List<Livre> findLivresByDisponibleIsTrue();
 
 
 }

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Random;
 
 @RestController
 public class LivreController {
@@ -21,10 +22,22 @@ public class LivreController {
         return livres;
     }
 
+    @CrossOrigin("*")
     @GetMapping(value="/Livre/{id}")
     public Livre detailLivre(@PathVariable int id){
         return livreDao.findById(id);
     }
+
+    @CrossOrigin("*")
+    @GetMapping(value="/randomLivre")
+    public Livre randomLivreDispo(){
+        List<Livre> livresDispo = livreDao.findLivresByDisponibleIsTrue();
+        Random rand = new Random();
+        Livre livreRandom = livresDispo.get(rand.nextInt(livresDispo.size()));
+        return livreRandom;
+    }
+
+
 
     @PostMapping(value="/ajouterLivre")
     public void ajouterLivre(@RequestBody Livre livre){
