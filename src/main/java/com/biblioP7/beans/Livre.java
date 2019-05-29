@@ -14,7 +14,7 @@ public class Livre {
     private String isbn;
 
     @Column(name="titre")
-    private String title;
+    private String titre;
 
     @Column(name="auteur_nom")
     private String auteurNom;
@@ -34,7 +34,6 @@ public class Livre {
     @Column(name="disponible")
     private boolean disponible;
 
-
     public int getId() {
         return id;
     }
@@ -51,12 +50,12 @@ public class Livre {
         this.isbn = isbn;
     }
 
-    public String getTitle() {
-        return title;
+    public String getTitre() {
+        return titre;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setTitre(String titre) {
+        this.titre = titre;
     }
 
     public String getAuteurNom() {
@@ -83,11 +82,11 @@ public class Livre {
         this.editeur = editeur;
     }
 
-    public String collection() {
+    public String getCollection() {
         return collection;
     }
 
-    public void collection(String collection) {
+    public void setCollection(String collection) {
         this.collection = collection;
     }
 
@@ -107,15 +106,12 @@ public class Livre {
         this.disponible = disponible;
     }
 
-    public Livre() {
-    }
-
     @Override
     public String toString() {
         return "Livre{" +
                 "id=" + id +
                 ", isbn='" + isbn + '\'' +
-                ", title='" + title + '\'' +
+                ", titre='" + titre + '\'' +
                 ", auteurNom='" + auteurNom + '\'' +
                 ", auteurPrenom='" + auteurPrenom + '\'' +
                 ", editeur='" + editeur + '\'' +
@@ -123,5 +119,8 @@ public class Livre {
                 ", etiquette='" + etiquette + '\'' +
                 ", disponible=" + disponible +
                 '}';
+    }
+
+    public Livre() {
     }
 }

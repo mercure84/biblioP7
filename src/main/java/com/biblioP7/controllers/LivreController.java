@@ -14,6 +14,7 @@ public class LivreController {
     @Autowired
     private LivreDao livreDao;
 
+    @CrossOrigin("*")
     @RequestMapping(value="/listeLivres", method= RequestMethod.GET)
     public List<Livre> listeLivres(){
         List<Livre> livres = livreDao.findAll();
