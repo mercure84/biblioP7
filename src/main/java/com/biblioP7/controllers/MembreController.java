@@ -2,6 +2,7 @@ package com.biblioP7.controllers;
 
 import com.biblioP7.beans.Membre;
 import com.biblioP7.dao.MembreDao;
+import com.biblioP7.security.EncryptedPasswordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,8 +27,12 @@ public class MembreController {
         return membreDao.findById(id);
     }
 
+    @CrossOrigin("*")
     @PostMapping(value="/ajouterMembre")
     public void ajouterMembre(@RequestBody Membre membre){
+
+        String encodedPassword = EncryptedPasswordUtils.encryptePassword(membre.getEncryptedPassword());
+        membre.setEncryptedPassword(encodedPassword);
         membreDao.save(membre);
     }
 
