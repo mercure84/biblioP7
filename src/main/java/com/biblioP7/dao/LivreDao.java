@@ -18,10 +18,10 @@ public interface LivreDao extends JpaRepository<Livre, Integer>{
     @Query("Select c from Livre c where c.titre like %:titre%")
     List<Livre> filtrerTitres(@Param("titre") String titre);
 
-//    @Query("Select c from Livre c where c.auteur like %:auteur%")
-//    List<Livre> filtrerAuteurs(@Param("auteur") String auteur);
-//
-//    @Query("Select c from Livre c where c.editeur like %:editeur%")
-//    List<Livre> filtrerEditeurs(@Param("editeur") String editeur);
+    @Query("Select c from Livre c where c.auteurNom like %:auteurNom%")
+    List<Livre> filtrerAuteurs(@Param("auteurNom") String auteurNom);
+
+    @Query("Select c from Livre c where c.editeur like %:editeur%")
+    List<Livre> filtrerEditeurs(@Param("editeur") String editeur);
 
 }

@@ -6,6 +6,7 @@ import com.biblioP7.dao.LivreDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -38,11 +39,25 @@ public class LivreController {
     }
 
     @CrossOrigin("*")
-    @GetMapping(value="/filtrerLivres/{champRecherche}")
-    public List<Livre> filtrerLivres(@PathVariable String champRecherche){
+    @GetMapping(value="/filtrerLivres")
+    public List<Livre> filtrerLivres(@RequestParam(name="typeRecherche") String typeRecherche, @RequestParam(name="champRecherche") String champRecherche){
+        List<Livre> resultat = new ArrayList<Livre>();
 
-        return livreDao.filtrerTitres(champRecherche);
+        switch(typeRecherche){
+            case "Titre":
+                resultat  = livreDao.filtrerTitres(champRecherche);
+                break;
 
+            case "Auteur":
+                resultat = livreDao.filtrerAuteurs(champRecherche);
+                break;
+
+            case "Editeur":
+               resultat = livreDao.filtrerEditeurs(champRecherche);
+                break;
+
+        }
+return resultat;
     }
 
 
