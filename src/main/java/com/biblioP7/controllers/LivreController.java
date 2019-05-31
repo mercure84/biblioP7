@@ -37,6 +37,15 @@ public class LivreController {
         return livreRandom;
     }
 
+    @CrossOrigin("*")
+    @GetMapping(value="/filtrerLivres/{champRecherche}")
+    public List<Livre> filtrerLivres(@PathVariable String champRecherche){
+
+        return livreDao.filtrerTitres(champRecherche);
+
+    }
+
+
 
 
     @PostMapping(value="/ajouterLivre")

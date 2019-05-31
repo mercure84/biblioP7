@@ -5,8 +5,11 @@ import com.biblioP7.dao.MembreDao;
 import com.biblioP7.security.EncryptedPasswordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.text.ParseException;
 import java.util.List;
 
@@ -31,11 +34,20 @@ public class MembreController {
 
     @CrossOrigin("*")
     @PostMapping(value="/ajouterMembre")
-    public void ajouterMembre(@RequestBody Membre membre){
+    public ResponseEntity<Membre> ajouterMembre(@RequestBody Membre membre){
 
         String encodedPassword = EncryptedPasswordUtils.encryptePassword(membre.getEncryptedPassword());
         membre.setEncryptedPassword(encodedPassword);
-        membreDao.save(membre);
+        Membre result = membreDao.save(membre);
+        try {
+            return ResponseEntity.created(new URI("/Membre/" + result.getId()))
+                    .body(result);
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+
     }
 
 

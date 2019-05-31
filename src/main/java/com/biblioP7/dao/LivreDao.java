@@ -2,15 +2,26 @@ package com.biblioP7.dao;
 
 import com.biblioP7.beans.Livre;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface LivreDao extends JpaRepository<Livre, Integer> {
+public interface LivreDao extends JpaRepository<Livre, Integer>{
 
     Livre findById(int it);
     List<Livre> findLivresByDisponibleIsTrue();
 
+    @Query("Select c from Livre c where c.titre like %:titre%")
+    List<Livre> filtrerTitres(@Param("titre") String titre);
+
+//    @Query("Select c from Livre c where c.auteur like %:auteur%")
+//    List<Livre> filtrerAuteurs(@Param("auteur") String auteur);
+//
+//    @Query("Select c from Livre c where c.editeur like %:editeur%")
+//    List<Livre> filtrerEditeurs(@Param("editeur") String editeur);
 
 }
