@@ -5,8 +5,6 @@ import java.util.Date;
 
 @Entity
 @Table(name="emprunt")
-
-
 public class Emprunt {
 
     @Id
@@ -93,4 +91,17 @@ public class Emprunt {
                 ", aEteProlonge=" + aEteProlonge +
                 '}';
     }
+
+
+
+
+    public Emprunt(Date debutDate, Date finDate, Membre membre, Livre livre) {
+        this.debutDate = debutDate;
+        this.finDate = finDate;
+        this.membre = membre;
+        this.livre = livre;
+    }
+
+
+
 }
