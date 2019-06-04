@@ -7,14 +7,12 @@ import com.biblioP7.beans.Membre;
 import com.biblioP7.dao.EmpruntDao;
 import com.biblioP7.dao.LivreDao;
 import com.biblioP7.dao.MembreDao;
-import com.biblioP7.utils.DataJSON;
-import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.biblioP7.utils.CreationEmprunt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.sql.SQLOutput;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -41,11 +39,11 @@ public class EmpruntController {
 
 
     @PostMapping(value="/creerEmprunt")
-    public ResponseEntity<Emprunt> creerEmprunt(@RequestBody DataJSON dataJSON){
+    public ResponseEntity<Emprunt> creerEmprunt(@RequestBody CreationEmprunt creationEmprunt){
 
-
-        int membreId = Integer.parseInt(dataJSON.getParam1());
-        int livreId = Integer.parseInt(dataJSON.getParam2());
+        System.out.println("dataJSON = " + creationEmprunt);
+        int membreId = Integer.parseInt(creationEmprunt.getMembreId());
+        int livreId = Integer.parseInt(creationEmprunt.getLivreId());
 
         System.out.println("livreId = " + livreId + "membreId = " + membreId) ;
 
