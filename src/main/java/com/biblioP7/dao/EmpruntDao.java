@@ -9,5 +9,8 @@ import org.springframework.stereotype.Repository;
 public interface EmpruntDao extends JpaRepository<Emprunt, Integer> {
 
 
+    Emprunt findById (int id);
+
+
 
 }

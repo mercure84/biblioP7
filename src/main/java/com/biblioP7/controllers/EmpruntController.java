@@ -39,7 +39,7 @@ public class EmpruntController {
 
 
     @PostMapping(value="/creerEmprunt")
-    public ResponseEntity<Emprunt> creerEmprunt(@RequestBody CreationEmprunt creationEmprunt){
+    public Emprunt creerEmprunt(@RequestBody CreationEmprunt creationEmprunt){
 
         System.out.println("dataJSON = " + creationEmprunt);
         int membreId = Integer.parseInt(creationEmprunt.getMembreId());
@@ -57,15 +57,54 @@ public class EmpruntController {
         Membre membre = membreDao.findById(membreId);
         Livre livre = livreDao.findById(livreId);
 
-        Emprunt nouvelEmprunt = new Emprunt();
+        if (!livre.isDisponible()){
+            //le livre n'est pas disponible, on ne peut pas l'emprunter !
+            return null;
 
-        nouvelEmprunt.setDebutDate(dateDebut);
-        nouvelEmprunt.setFinDate(dateFin);
-        nouvelEmprunt.setLivre(livre);
-        nouvelEmprunt.setMembre(membre);
+        }
 
-        empruntDao.save(nouvelEmprunt);
-        return new ResponseEntity<Emprunt>(HttpStatus.NO_CONTENT);
+        else {
+
+            Emprunt nouvelEmprunt = new Emprunt();
+
+            nouvelEmprunt.setDebutDate(dateDebut);
+            nouvelEmprunt.setFinDate(dateFin);
+            nouvelEmprunt.setLivre(livre);
+            nouvelEmprunt.setMembre(membre);
+
+            empruntDao.save(nouvelEmprunt);
+
+            //passage et sauvegarde du livre en tant que non disponible (à modifier plus tard si nous gérons la quantité ?)
+            livre.setDisponible(false);
+            livreDao.save(livre);
+            return nouvelEmprunt;
+        }
+
+    }
+
+    @CrossOrigin("*")
+    @RequestMapping(value="/prolongerEmprunt/{id}", method= RequestMethod.GET)
+    public Emprunt prolongerEmprunt(@PathVariable int id){
+
+        Emprunt empruntAProlonger = empruntDao.findById(id);
+
+        if(empruntAProlonger.isaEteProlonge()){
+            return null;
+
+        } else {
+            empruntAProlonger.setaEteProlonge(true);
+            //ajout de 28 jours à dateFin
+            Date dateFin = empruntAProlonger.getFinDate();
+            Calendar c = Calendar.getInstance();
+            c.setTime(dateFin);
+            c.add(Calendar.DATE, 28);
+            Date dateFinBis = c.getTime();
+
+            empruntAProlonger.setFinDate(dateFinBis);
+            empruntDao.save(empruntAProlonger);
+            return empruntAProlonger;
+
+        }
 
 
     }
