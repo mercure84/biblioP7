@@ -10,5 +10,7 @@ public interface MembreDao extends JpaRepository<Membre, Integer> {
 
     Membre findById(int id);
 
+    Membre findByEmail(String email);
+
 
 }

@@ -30,6 +30,17 @@ public class Membre {
     @Column(name="portable")
     private String portable;
 
+    @Column(name="role")
+    private String role;
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public int getId() {
         return id;
     }
