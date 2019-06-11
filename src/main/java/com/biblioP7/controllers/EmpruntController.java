@@ -7,10 +7,8 @@ import com.biblioP7.beans.Membre;
 import com.biblioP7.dao.EmpruntDao;
 import com.biblioP7.dao.LivreDao;
 import com.biblioP7.dao.MembreDao;
-import com.biblioP7.utils.CreationEmprunt;
+import com.biblioP7.beans.CreationEmprunt;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Calendar;
@@ -88,11 +86,11 @@ public class EmpruntController {
 
         Emprunt empruntAProlonger = empruntDao.findById(id);
 
-        if(empruntAProlonger.isaEteProlonge()){
+        if(empruntAProlonger.isProlonge()){
             return null;
 
         } else {
-            empruntAProlonger.setaEteProlonge(true);
+            empruntAProlonger.setProlonge(true);
             //ajout de 28 jours à dateFin
             Date dateFin = empruntAProlonger.getFinDate();
             Calendar c = Calendar.getInstance();
@@ -107,6 +105,16 @@ public class EmpruntController {
         }
 
 
+    }
+
+
+    @CrossOrigin("*")
+    @RequestMapping(value="/listeEmpruntsExpires", method= RequestMethod.GET)
+    public List<Emprunt> empruntsExpires (){
+        Date today = new Date();
+
+        List<Emprunt> emprunts = empruntDao.findEmpruntsExpires(false, today);
+        return emprunts;
     }
 
 

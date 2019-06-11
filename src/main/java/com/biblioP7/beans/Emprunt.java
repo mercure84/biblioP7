@@ -27,7 +27,14 @@ public class Emprunt {
     private Livre livre;
 
     @Column(name="a_ete_prolonge")
-    private boolean aEteProlonge = false;
+    private boolean isProlonge = false;
+
+    @Column(name="a_ete_rendu")
+    private boolean isRendu = false;
+
+    public Emprunt() {
+
+    }
 
     public int getId() {
         return id;
@@ -69,31 +76,21 @@ public class Emprunt {
         this.livre = livre;
     }
 
-    public boolean isaEteProlonge() {
-        return aEteProlonge;
+    public boolean isProlonge() {
+        return isProlonge;
     }
 
-    public void setaEteProlonge(boolean aEteProlonge) {
-        this.aEteProlonge = aEteProlonge;
+    public void setProlonge(boolean prolonge) {
+        isProlonge = prolonge;
     }
 
-    public Emprunt() {
-            }
-
-    @Override
-    public String toString() {
-        return "Emprunt{" +
-                "id=" + id +
-                ", debutDate=" + debutDate +
-                ", finDate=" + finDate +
-                ", membre=" + membre +
-                ", livre=" + livre +
-                ", aEteProlonge=" + aEteProlonge +
-                '}';
+    public boolean isRendu() {
+        return isRendu;
     }
 
-
-
+    public void setRendu(boolean rendu) {
+        isRendu = rendu;
+    }
 
     public Emprunt(Date debutDate, Date finDate, Membre membre, Livre livre) {
         this.debutDate = debutDate;
