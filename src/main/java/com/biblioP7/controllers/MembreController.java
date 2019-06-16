@@ -20,13 +20,13 @@ public class MembreController {
     @Autowired
     private MembreDao membreDao;
 
-
+    @CrossOrigin("*")
     @RequestMapping(value="/listeMembres", method= RequestMethod.GET)
     public List<Membre> listeMembres(){
         List<Membre> membres = membreDao.findAll();
         return membres;
     }
-
+    @CrossOrigin("*")
     @GetMapping(value="/Membre/{id}")
     public Membre detailMembre(@PathVariable int id){
         return membreDao.findById(id);
@@ -47,8 +47,16 @@ public class MembreController {
             return null;
         }
 
-
     }
+
+    @CrossOrigin("*")
+    @PostMapping(value="/seConnecter")
+    public String connection(){
+
+
+        return "/";
+    }
+
 
 
 

@@ -2,9 +2,6 @@ package com.biblioP7.security;
 
 import com.biblioP7.beans.Membre;
 import com.biblioP7.dao.MembreDao;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -25,11 +22,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private MembreDao membreDao;
 
-// Nous n'utilisons pas de table listant les rôle car chaque membre ne peut avoir qu'un seul rôle (à définir avec le métier)
+
+//    Dans le cas où on utilise une table dédiée aux rôles... ce qui n'est pas le cas dans notre P7
 //    @Autowired
 //    private AppRoleDAO appRoleDAO;
 
-    private static final Logger logger = LoggerFactory.getLogger(UserDetailsServiceImpl.class);
 
 
     @Override
@@ -37,22 +34,19 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         Membre membre = this.membreDao.findByEmail(email);
 
         if (membre == null) {
-            logger.warn("User not found! " + email);
-            throw new UsernameNotFoundException("User " + email + " was not found in the database");
+            throw new UsernameNotFoundException("User " + membre.getPrenom() + " " + membre.getPrenom() + " " + " " + membre.getEmail() + " was not found in the database");
         }
 
-        logger.info("Found User: " + membre);
 
         // [ROLE_USER, ROLE_ADMIN,..]
-        String roleMembre = membre.getRole();
+        String roleName = membre.getRole();
 
         List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
 
-        if (roleMembre != null) {
-        {       // ROLE_USER, ROLE_ADMIN,..
-                GrantedAuthority authority = new SimpleGrantedAuthority(roleMembre);
+        if (roleName != null) {
+            GrantedAuthority authority = new SimpleGrantedAuthority(roleName);
                 grantList.add(authority);
-            }
+
         }
 
         UserDetails userDetails = (UserDetails) new User(membre.getEmail(), membre.getEncryptedPassword(), grantList);
