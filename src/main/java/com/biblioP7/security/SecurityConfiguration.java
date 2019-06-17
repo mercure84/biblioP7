@@ -60,11 +60,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         http
                 .authorizeRequests()
-                .antMatchers("/bower_components/**", "/*.js",
-                        "/*.jsx", "/main.css").permitAll()
+                .antMatchers("/").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().loginPage("/")
+                .loginProcessingUrl("/login")
                 .usernameParameter("email")
                 .passwordParameter("encryptedPassword")
                 .defaultSuccessUrl("/", true)

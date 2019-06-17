@@ -39,12 +39,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 
         // [ROLE_USER, ROLE_ADMIN,..]
-        String roleName = membre.getRole();
+        int roleName = membre.getRole();
 
         List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
 
-        if (roleName != null) {
-            GrantedAuthority authority = new SimpleGrantedAuthority(roleName);
+        if (roleName > 0) {
+            GrantedAuthority authority = new SimpleGrantedAuthority(Integer.toString(roleName));
                 grantList.add(authority);
 
         }

@@ -31,13 +31,13 @@ public class Membre {
     private String portable;
 
     @Column(name="role")
-    private String role;
+    private int role =1;
 
-    public String getRole() {
+    public int getRole() {
         return role;
     }
 
-    public void setRole(String role) {
+    public void setRole(int role) {
         this.role = role;
     }
 
@@ -107,9 +107,9 @@ public class Membre {
                 ", nom='" + nom + '\'' +
                 ", prenom='" + prenom + '\'' +
                 ", email='" + email + '\'' +
-                ", encryptedPassword='" + encryptedPassword + '\'' +
                 ", dateInscription=" + dateInscription +
                 ", portable='" + portable + '\'' +
+                ", role=" + role +
                 '}';
     }
 }

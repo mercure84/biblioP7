@@ -49,14 +49,6 @@ public class MembreController {
 
     }
 
-    @CrossOrigin("*")
-    @PostMapping(value="/seConnecter")
-    public String connection(){
-
-
-        return "/";
-    }
-
 
 
 
