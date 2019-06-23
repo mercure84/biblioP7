@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 
 @Data
@@ -36,7 +38,6 @@ public class Membre {
     @Column(name="portable")
     private String portable;
 
-    @Column(name="role")
-    private int role =1;
-
+    @ManyToMany(fetch=FetchType.EAGER)
+    private Collection<AppRole> roles = new ArrayList<>();
 }

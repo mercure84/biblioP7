@@ -10,7 +10,9 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -46,7 +48,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth
-                .userDetailsService(this.userDetailsService)
+                .userDetailsService(userDetailsService)
                 .passwordEncoder(passwordEncoder());
     }
 
@@ -56,25 +58,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors();
+        http.csrf().disable();
+
+        http.sessionManagement().sessionCreationPolicy((SessionCreationPolicy.STATELESS));
 
 
-        http
-                .authorizeRequests()
-                .antMatchers("/").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin().loginPage("/")
-                .loginProcessingUrl("/login")
-                .usernameParameter("email")
-                .passwordParameter("encryptedPassword")
-                .defaultSuccessUrl("/", true)
-                .permitAll()
-                .and()
-                .httpBasic()
-                .and()
-                .csrf().disable()
-                .logout()
-                .logoutSuccessUrl("/");
+        http.authorizeRequests().antMatchers("/").permitAll();
+        http.authorizeRequests().anyRequest().authenticated();
+        http.formLogin().loginPage("/").loginProcessingUrl("/login").usernameParameter("email").passwordParameter("encryptedPassword");
+
+        http.addFilter(new JWTAuthenticationFilter((authenticationManager())));
+        http.addFilterBefore(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
+
 
     }
 

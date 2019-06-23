@@ -1,8 +1,9 @@
 package com.biblioP7.controllers;
 
 import com.biblioP7.beans.Membre;
+import com.biblioP7.beans.RegisterForm;
 import com.biblioP7.dao.MembreDao;
-import com.biblioP7.security.EncryptedPasswordUtils;
+import com.biblioP7.security.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,9 @@ public class MembreController {
     @Autowired
     private MembreDao membreDao;
 
+    @Autowired
+    private AccountService accountService;
+
     @CrossOrigin("*")
     @RequestMapping(value="/listeMembres", method= RequestMethod.GET)
     public List<Membre> listeMembres(){
@@ -34,19 +38,21 @@ public class MembreController {
 
     @CrossOrigin("*")
     @PostMapping(value="/ajouterMembre")
-    public ResponseEntity<Membre> ajouterMembre(@RequestBody Membre membre){
+    public Membre ajouterMembre(@RequestBody RegisterForm userForm){
 
-        String encodedPassword = EncryptedPasswordUtils.encryptePassword(membre.getEncryptedPassword());
-        membre.setEncryptedPassword(encodedPassword);
-        Membre result = membreDao.save(membre);
-        try {
-            return ResponseEntity.created(new URI("/Membre/" + result.getId()))
-                    .body(result);
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-            return null;
-        }
+        if(!userForm.getPassword().equals(userForm.getRepassword()))
+            throw new RuntimeException(("You must confirm your password"));
 
+
+        Membre user = accountService.findUserByUsername(userForm.getUsername());
+        if(user != null) throw new RuntimeException("Utilisateur déjà enregistré !");
+        Membre membre = new Membre();
+        membre.setEmail(userForm.getUsername());
+        membre.setEncryptedPassword(userForm.getPassword());
+
+        accountService.saveMembre(membre);
+        accountService.addRoleToMembre(userForm.getUsername(), "USER");
+        return membre;
     }
 
 
