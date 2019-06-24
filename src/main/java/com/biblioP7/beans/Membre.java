@@ -29,8 +29,8 @@ public class Membre {
     @Column(name="email")
     private String email;
 
-    @Column(name="encryptedpassword")
-    private String encryptedPassword;
+    @Column(name="password")
+    private String password;
 
     @Column(name="dateinscription")
     private Date dateInscription;
@@ -38,6 +38,6 @@ public class Membre {
     @Column(name="portable")
     private String portable;
 
-    @ManyToMany(fetch=FetchType.EAGER)
-    private Collection<AppRole> roles = new ArrayList<>();
+    @Column(name="role")
+    private String role = "USER";
 }

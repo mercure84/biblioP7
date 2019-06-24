@@ -1,6 +1,7 @@
 package com.biblioP7.security;
 
 import com.biblioP7.beans.Membre;
+import com.biblioP7.dao.MembreDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 //classe qui vérifie la concordance des utilisateurs et de leurs rôles
 
@@ -20,20 +20,17 @@ import java.util.List;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
-    private AccountService accountService;
-
+    MembreDao membreDao;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Membre membre = accountService.findUserByUsername(username);
+        Membre membre = membreDao.findByEmail(username);
         if(membre == null) throw new UsernameNotFoundException((username));
+        System.out.println("role du membre = " + membre.getRole());
 
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-        membre.getRoles().forEach((r->{
-            authorities.add(new SimpleGrantedAuthority((r.getRoleName())));
-        }));
-
-        return new User(membre.getEmail(), membre.getEncryptedPassword(), authorities);
+        authorities.add(new SimpleGrantedAuthority(membre.getRole()));
+        return new User(membre.getEmail(), membre.getPassword(), authorities);
 
 
 

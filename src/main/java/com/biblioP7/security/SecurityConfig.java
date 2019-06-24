@@ -22,7 +22,7 @@ import java.util.Arrays;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
@@ -63,7 +63,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy((SessionCreationPolicy.STATELESS));
 
 
-        http.authorizeRequests().antMatchers("/").permitAll();
+        http.authorizeRequests().antMatchers("/login", "/", "ajouterMembre").permitAll();
         http.authorizeRequests().anyRequest().authenticated();
         http.formLogin().loginPage("/").loginProcessingUrl("/login").usernameParameter("email").passwordParameter("encryptedPassword");
 
