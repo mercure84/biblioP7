@@ -42,6 +42,8 @@ public class MembreController {
         Membre user = membreDao.findByEmail(userForm.getEmail());
         if(user != null) throw new RuntimeException("Utilisateur déjà enregistré !");
         Membre membre = new Membre();
+        membre.setPrenom(userForm.getPrenom());
+        membre.setNom(userForm.getNom());
         membre.setEmail(userForm.getEmail());
         String encodedPassword = EncryptedPasswordUtils.encryptePassword(userForm.getPassword());
         membre.setPassword(encodedPassword);
