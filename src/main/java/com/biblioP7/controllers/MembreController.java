@@ -28,7 +28,6 @@ public class MembreController {
     @GetMapping(value="/Membre/data/{email}")
     public Membre dataMembre(@PathVariable String email){
         return membreDao.findByEmail(email);
-
     }
 
 

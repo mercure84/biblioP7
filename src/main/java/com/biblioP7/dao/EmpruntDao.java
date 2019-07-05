@@ -2,6 +2,7 @@ package com.biblioP7.dao;
 
 
 import com.biblioP7.beans.Emprunt;
+import com.biblioP7.beans.Membre;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -20,6 +21,6 @@ public interface EmpruntDao extends JpaRepository<Emprunt, Integer> {
     List<Emprunt> findEmpruntsExpires(boolean isRendu, Date today);
 
 
-
+    List<Emprunt> findEmpruntsByMembre(Membre membre);
 
 }

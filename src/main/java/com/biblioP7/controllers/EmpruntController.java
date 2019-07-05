@@ -35,6 +35,16 @@ public class EmpruntController {
         return emprunts;
     }
 
+    @RequestMapping(value="/EmpruntsMembre/{membreId}")
+    public List<Emprunt> empruntsParMembre(@PathVariable int membreId){
+        Membre membre = membreDao.findById(membreId);
+
+        List<Emprunt> listeEmprunt = empruntDao.findEmpruntsByMembre(membre);
+
+        return listeEmprunt;
+    }
+
+
 
     @PostMapping(value="/creerEmprunt")
     public Emprunt creerEmprunt(@RequestBody CreationEmprunt creationEmprunt){
