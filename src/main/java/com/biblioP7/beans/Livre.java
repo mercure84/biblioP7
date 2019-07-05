@@ -41,5 +41,75 @@ public class Livre {
     @Column(name="disponible")
     private boolean disponible;
 
+    public int getId() {
+        return id;
+    }
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getIsbn() {
+        return isbn;
+    }
+
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    public String getTitre() {
+        return titre;
+    }
+
+    public void setTitre(String titre) {
+        this.titre = titre;
+    }
+
+    public String getAuteurNom() {
+        return auteurNom;
+    }
+
+    public void setAuteurNom(String auteurNom) {
+        this.auteurNom = auteurNom;
+    }
+
+    public String getAuteurPrenom() {
+        return auteurPrenom;
+    }
+
+    public void setAuteurPrenom(String auteurPrenom) {
+        this.auteurPrenom = auteurPrenom;
+    }
+
+    public String getEditeur() {
+        return editeur;
+    }
+
+    public void setEditeur(String editeur) {
+        this.editeur = editeur;
+    }
+
+    public String getCollection() {
+        return collection;
+    }
+
+    public void setCollection(String collection) {
+        this.collection = collection;
+    }
+
+    public String getEtiquette() {
+        return etiquette;
+    }
+
+    public void setEtiquette(String etiquette) {
+        this.etiquette = etiquette;
+    }
+
+    public boolean isDisponible() {
+        return disponible;
+    }
+
+    public void setDisponible(boolean disponible) {
+        this.disponible = disponible;
+    }
 }

@@ -117,6 +117,28 @@ public class EmpruntController {
 
     }
 
+    @CrossOrigin("*")
+    @RequestMapping(value="/stopperEmprunt/{id}")
+    public Livre livreRendu(@PathVariable int id){
+
+        //on tope l'emprunt à "rendu true" + modif de la date de fin
+        Emprunt emprunt = empruntDao.findById(id);
+        emprunt.setFinDate(new Date());
+        emprunt.setRendu(true);
+
+        //on tope le livre à disponible = true
+        Livre livreRendu = livreDao.findById(emprunt.getLivre().getId());
+        livreRendu.setDisponible(true);
+
+        //on save les 2 entités livre / emprunt
+        livreDao.save(livreRendu);
+        empruntDao.save(emprunt);
+
+        return livreRendu;
+
+
+    }
+
 
     @CrossOrigin("*")
     @RequestMapping(value="/listeEmpruntsExpires", method= RequestMethod.GET)
