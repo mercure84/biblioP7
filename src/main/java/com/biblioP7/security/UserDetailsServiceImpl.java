@@ -26,14 +26,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Membre membre = membreDao.findByEmail(username);
         if(membre == null) throw new UsernameNotFoundException((username));
-        System.out.println("role du membre = " + membre.getRole());
+//        System.out.println("role du membre = " + membre.getRole());
 
         Collection<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(membre.getRole()));
         return new User(membre.getEmail(), membre.getPassword(), authorities);
-
-
-
 
 
     }

@@ -110,6 +110,7 @@ public class EmpruntController {
 
             empruntAProlonger.setFinDate(dateFinBis);
             empruntDao.save(empruntAProlonger);
+            System.out.println("l'emprunt n° " + empruntAProlonger.getId() + " a bien été prolongé !");
             return empruntAProlonger;
 
         }
