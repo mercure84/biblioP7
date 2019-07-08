@@ -17,20 +17,20 @@ public class LivreController {
     private LivreDao livreDao;
 
     @CrossOrigin("*")
-    @RequestMapping(value="/listeLivres", method= RequestMethod.GET)
+    @RequestMapping(value="/api/listeLivres", method= RequestMethod.GET)
     public List<Livre> listeLivres(){
         List<Livre> livres = livreDao.findAll();
         return livres;
     }
 
     @CrossOrigin("*")
-    @GetMapping(value="/Livre/{id}")
+    @GetMapping(value="/api/Livre/{id}")
     public Livre detailLivre(@PathVariable int id){
         return livreDao.findById(id);
     }
 
     @CrossOrigin("*")
-    @GetMapping(value="/randomLivre")
+    @GetMapping(value="/api/randomLivre")
     public Livre randomLivreDispo(){
         List<Livre> livresDispo = livreDao.findLivresByDisponibleIsTrue();
         Random rand = new Random();
@@ -39,7 +39,7 @@ public class LivreController {
     }
 
     @CrossOrigin("*")
-    @GetMapping(value="/filtrerLivres")
+    @GetMapping(value="/api/filtrerLivres")
     public List<Livre> filtrerLivres(@RequestParam(name="typeRecherche") String typeRecherche, @RequestParam(name="champRecherche") String champRecherche){
         List<Livre> resultat = new ArrayList<Livre>();
 
@@ -63,7 +63,7 @@ return resultat;
 
 
 
-    @PostMapping(value="/ajouterLivre")
+    @PostMapping(value="/api/ajouterLivre")
     public void ajouterLivre(@RequestBody Livre livre){
         livreDao.save(livre);
     }

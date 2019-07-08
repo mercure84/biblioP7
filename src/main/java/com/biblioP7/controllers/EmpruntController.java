@@ -29,13 +29,13 @@ public class EmpruntController {
 
 
 
-    @RequestMapping(value="/listeEmprunts", method= RequestMethod.GET)
+    @RequestMapping(value="/apit/listeEmprunts", method= RequestMethod.GET)
     public List<Emprunt> listeEmprunts(){
         List<Emprunt> emprunts = empruntDao.findAll();
         return emprunts;
     }
 
-    @RequestMapping(value="/EmpruntsMembre/{membreId}")
+    @RequestMapping(value="/api/EmpruntsMembre/{membreId}")
     public List<Emprunt> empruntsParMembre(@PathVariable int membreId){
         Membre membre = membreDao.findById(membreId);
 
@@ -46,7 +46,7 @@ public class EmpruntController {
 
 
 
-    @PostMapping(value="/creerEmprunt")
+    @PostMapping(value="/api/creerEmprunt")
     public Emprunt creerEmprunt(@RequestBody CreationEmprunt creationEmprunt){
 
         System.out.println("dataJSON = " + creationEmprunt);
@@ -91,7 +91,7 @@ public class EmpruntController {
     }
 
     @CrossOrigin("*")
-    @RequestMapping(value="/prolongerEmprunt/{id}", method= RequestMethod.GET)
+    @RequestMapping(value="/api/prolongerEmprunt/{id}", method= RequestMethod.GET)
     public Emprunt prolongerEmprunt(@PathVariable int id){
 
         Emprunt empruntAProlonger = empruntDao.findById(id);
@@ -119,7 +119,7 @@ public class EmpruntController {
     }
 
     @CrossOrigin("*")
-    @RequestMapping(value="/stopperEmprunt/{id}")
+    @RequestMapping(value="/api/stopperEmprunt/{id}")
     public Livre livreRendu(@PathVariable int id){
 
         //on tope l'emprunt à "rendu true" + modif de la date de fin
@@ -142,7 +142,7 @@ public class EmpruntController {
 
 
     @CrossOrigin("*")
-    @RequestMapping(value="/listeEmpruntsExpires", method= RequestMethod.GET)
+    @RequestMapping(value="/api/listeEmpruntsExpires", method= RequestMethod.GET)
     public List<Emprunt> empruntsExpires (){
         Date today = new Date();
 

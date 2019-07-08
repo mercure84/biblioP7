@@ -18,28 +18,28 @@ public class MembreController {
     private MembreDao membreDao;
 
     @CrossOrigin("*")
-    @RequestMapping(value="/listeMembres", method= RequestMethod.GET)
+    @RequestMapping(value="/api/listeMembres", method= RequestMethod.GET)
     public List<Membre> listeMembres(){
         List<Membre> membres = membreDao.findAll();
         return membres;
     }
 
     @CrossOrigin("*")
-    @GetMapping(value="/Membre/data/{email}")
+    @GetMapping(value="/api/Membre/data/{email}")
     public Membre dataMembre(@PathVariable String email){
         return membreDao.findByEmail(email);
     }
 
 
     @CrossOrigin("*")
-    @GetMapping(value="/Membre/{id}")
+    @GetMapping(value="/api/Membre/{id}")
     public Membre detailMembre(@PathVariable int id){
         return membreDao.findById(id);
     }
 
 
     @CrossOrigin("*")
-    @PostMapping(value="/ajouterMembre")
+    @PostMapping(value="/api/ajouterMembre")
     public Membre ajouterMembre(@RequestBody RegisterForm userForm){
 
         if(!userForm.getPassword().equals(userForm.getRepassword()))
