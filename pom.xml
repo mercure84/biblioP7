@@ -10,9 +10,10 @@
 	</parent>
 	<groupId>com.biblioP7</groupId>
 	<artifactId>biblioP7</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.1-RELEASE</version>
 	<name>biblioP7</name>
-	<description>Demo project for Spring Boot</description>
+	<description>API REST BiblioP7</description>
+	<packaging>jar</packaging>
 
 	<properties>
 		<java.version>1.8</java.version>
@@ -84,68 +85,10 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-
-<!--2 PLUGIN DE DEPLOYMENT DU FRONTEND REACTJS-->
-
-			<plugin>
-				<groupId>com.github.eirslett</groupId>
-				<artifactId>frontend-maven-plugin</artifactId>
-				<version>1.6</version>
 				<configuration>
-					<nodeVersion>v10.0.0</nodeVersion>
-					<npmVersion>6.1.0</npmVersion>
-					<workingDirectory>src/main/app</workingDirectory>
+					<executable>true</executable>
 				</configuration>
-				<executions>
-					<execution>
-						<id>Install node and npm locally to the project</id>
-						<goals>
-							<goal>install-node-and-npm</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>npm install</id>
-						<goals>
-							<goal>npm</goal>
-						</goals>
-					</execution>
-					<execution>
-						<id>Build frontend</id>
-						<goals>
-							<goal>npm</goal>
-						</goals>
-						<configuration>
-							<arguments>run build</arguments>
-						</configuration>
-					</execution>
-				</executions>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-resources-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>Copy frontend build to target</id>
-						<phase>process-resources</phase>
-						<goals>
-							<goal>copy-resources</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${basedir}/target/classes/resources</outputDirectory>
-							<resources>
-								<resource>
-									<directory>${basedir}/src/main/js/frontend/build</directory>
-									<filtering>true</filtering>
-								</resource>
-							</resources>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-
-
-
 
 
 		</plugins>

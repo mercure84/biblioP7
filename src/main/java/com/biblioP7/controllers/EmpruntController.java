@@ -29,7 +29,7 @@ public class EmpruntController {
 
 
 
-    @RequestMapping(value="/apit/listeEmprunts", method= RequestMethod.GET)
+    @RequestMapping(value="/api/listeEmprunts", method= RequestMethod.GET)
     public List<Emprunt> listeEmprunts(){
         List<Emprunt> emprunts = empruntDao.findAll();
         return emprunts;

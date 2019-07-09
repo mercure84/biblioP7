@@ -80,8 +80,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy((SessionCreationPolicy.STATELESS));
 
-        http.authorizeRequests().antMatchers("/login", "/", "/ajouterMembre").permitAll();
-        http.authorizeRequests().anyRequest().hasAuthority("USER");
+        http.authorizeRequests().antMatchers("/api/login", "/", "/api/ajouterMembre").permitAll();
+        http.authorizeRequests().antMatchers("/api/listeEmprunts", "/api/creerEmprunt",
+                "/api/stopperEmprunt/{id}", "/api/listeEmpruntsExpires",
+                "/api/ajouterLivre",
+                "/api/listeMembres", "/api/Membre/{id}").hasAuthority("ADMIN");
+
+        http.authorizeRequests().anyRequest().hasAnyAuthority("ADMIN", "USER");
 
         // Add a filter to validate the tokens with every request
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
