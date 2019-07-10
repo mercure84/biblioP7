@@ -15,13 +15,13 @@ public interface LivreDao extends JpaRepository<Livre, Integer>{
     Livre findById(int it);
     List<Livre> findLivresByDisponibleIsTrue();
 
-    @Query("Select c from Livre c where lower(c.titre)) like %:titre%")
+    @Query("Select c from Livre c where lower(unaccent(c.titre)) like ('%' || lower(unaccent(:titre)) || '%')")
     List<Livre> filtrerTitres(@Param("titre") String titre);
 
-    @Query("Select c from Livre c where lower(c.auteurNom) like %:auteurNom%")
+    @Query("Select c from Livre c where lower(unaccent(c.auteurNom)) like ('%' || lower(unaccent(:auteurNom)) || '%')")
     List<Livre> filtrerAuteurs(@Param("auteurNom") String auteurNom);
 
-    @Query("Select c from Livre c where lower(c.editeur) like %:editeur%")
+    @Query("Select c from Livre c where lower(unaccent(c.editeur)) like ('%' || lower(unaccent(:editeur)) || '%')")
     List<Livre> filtrerEditeurs(@Param("editeur") String editeur);
 
 }
