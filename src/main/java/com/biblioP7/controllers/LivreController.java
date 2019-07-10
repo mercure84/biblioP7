@@ -43,17 +43,21 @@ public class LivreController {
     public List<Livre> filtrerLivres(@RequestParam(name="typeRecherche") String typeRecherche, @RequestParam(name="champRecherche") String champRecherche){
         List<Livre> resultat = new ArrayList<Livre>();
 
+        champRecherche = champRecherche.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
+
+
+
         switch(typeRecherche){
             case "Titre":
-                resultat  = livreDao.filtrerTitres(champRecherche);
+                resultat  = livreDao.filtrerTitres(champRecherche.toLowerCase());
                 break;
 
             case "Auteur":
-                resultat = livreDao.filtrerAuteurs(champRecherche);
+                resultat = livreDao.filtrerAuteurs(champRecherche.toLowerCase());
                 break;
 
             case "Editeur":
-               resultat = livreDao.filtrerEditeurs(champRecherche);
+               resultat = livreDao.filtrerEditeurs(champRecherche.toLowerCase());
                 break;
 
         }
