@@ -82,7 +82,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests().antMatchers("/api/login", "/", "/api/ajouterMembre").permitAll();
         http.authorizeRequests().antMatchers("/api/listeEmprunts", "/api/creerEmprunt",
-                "/api/stopperEmprunt/{id}", "/api/listeEmpruntsExpires",
+                "/api/stopperEmprunt/{id}", "/api/listeEmpruntsExpires", "/api/runBatch",
                 "/api/ajouterLivre",
                 "/api/listeMembres", "/api/Membre/{id}").hasAuthority("ADMIN");
 

@@ -49,7 +49,7 @@
 		</dependency>
 
 
-		<!--SECURITE / chiffrement du mdp-->
+<!--SECURITE / chiffrement du mdp-->
 
 		<dependency>
 			<groupId>org.springframework.security</groupId>

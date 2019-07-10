@@ -8,9 +8,17 @@ import com.biblioP7.dao.EmpruntDao;
 import com.biblioP7.dao.LivreDao;
 import com.biblioP7.dao.MembreDao;
 import com.biblioP7.beans.CreationEmprunt;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -145,9 +153,73 @@ public class EmpruntController {
     @RequestMapping(value="/api/listeEmpruntsExpires", method= RequestMethod.GET)
     public List<Emprunt> empruntsExpires (){
         Date today = new Date();
-
         List<Emprunt> emprunts = empruntDao.findEmpruntsExpires(false, today);
         return emprunts;
+    }
+
+
+//    IMPLEMENTATION DU BATCH DE RELANCE ==> création d'un fichier avec la liste des mails à envoyer !
+
+    @CrossOrigin
+    @RequestMapping(value="/api/runBatch", method=RequestMethod.GET)
+    public String batch(){
+        String resultat = null;
+        try {
+
+            List<Emprunt> empruntsEchusEncours = empruntDao.findEmpruntsExpires(false, new Date());
+
+            List<String> messages = new ArrayList<String>();
+
+            if (empruntsEchusEncours.size() == 0){
+                messages.add("AUCUN MEMBRE A RELANCER :)");
+            } else {
+                for(int i = 0; i<empruntsEchusEncours.size(); i++){
+
+                    messages.add(genererMail(empruntsEchusEncours.get(i)));
+
+                }
+            }
+
+            fichierMails(empruntsEchusEncours, messages);
+            resultat = "Le batch a été exécuté sans erreur, vous pouvez consulter le fichier de retour dans le dossier habituel";
+                    } catch(Exception error){
+            resultat = "Le batch a échoué !" + error;
+        }
+        return resultat;
+    }
+
+
+    private String genererMail(Emprunt emprunt) {
+        Membre membre = emprunt.getMembre();
+        Livre livre = emprunt.getLivre();
+        String texte = "\n[SEND TO :" + membre.getEmail() + "] \n"
+                +"Bonjour " + membre.getPrenom() + membre.getNom() + ", \n"+
+                "Votre bibliothèque attend le retour du livre : " + livre.getTitre() + ", que vous avez emprunté en date du " + emprunt.getDebutDate() + ". \n" +
+                "Ce livre aurait du être restitué avant le " + emprunt.getFinDate() + ". \n" +
+                "Nous vous prions de nous le rapporter dans les meilleurs délais pour que d'autres lecteurs puissent emprunter cet ouvrage. \n" +
+                "En vous remerciant pour votre compréhension. \n" + "Votre bibliothécaire préféré. \n";
+
+
+        return texte;
+    }
+
+
+    private void fichierMails(List<Emprunt> empruntsEchus, List<String> messages) throws IOException {
+        System.out.println("Emprunts échus : \n" + empruntsEchus);
+        System.out.println("Messages générés : \n" + messages);
+        try{
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String dateString = dateFormat.format(new Date());
+            FileWriter writer = new FileWriter("mails"+dateString+".txt");
+            BufferedWriter bw = new BufferedWriter(writer);
+            bw.write(empruntsEchus.toString());
+            bw.write(messages.toString());
+            bw.close();
+
+        } catch (IOException error){
+            System.out.println("IO Exception interceptée : " + error);
+        }
+
     }
 
 
