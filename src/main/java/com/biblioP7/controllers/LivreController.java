@@ -6,9 +6,7 @@ import com.biblioP7.dao.LivreDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 @RestController
 public class LivreController {
@@ -17,11 +15,27 @@ public class LivreController {
     private LivreDao livreDao;
 
     @CrossOrigin("*")
-    @RequestMapping(value="/api/listeLivres", method= RequestMethod.GET)
+    @RequestMapping(value="/api/Livre/listeLivres", method= RequestMethod.GET)
     public List<Livre> listeLivres(){
         List<Livre> livres = livreDao.findAll();
         return livres;
     }
+
+    @CrossOrigin("*")
+    @RequestMapping(value="/api/Livre/nbLivres", method= RequestMethod.GET)
+    public Map<String, Integer> nbLivres(){
+        Map<String, Integer> resultat = new HashMap<>();
+        int nbLivres = livreDao.findAll().size();
+        int nbLivresDispo = livreDao.findLivresByDisponibleIsTrue().size();
+
+        resultat.put("nbLivres", nbLivres);
+        resultat.put("nbLivresDispo", nbLivresDispo);
+
+        return resultat;
+    }
+
+
+
 
     @CrossOrigin("*")
     @GetMapping(value="/api/Livre/{id}")
@@ -30,7 +44,7 @@ public class LivreController {
     }
 
     @CrossOrigin("*")
-    @GetMapping(value="/api/randomLivre")
+    @GetMapping(value="/api/Livre/randomLivre")
     public Livre randomLivreDispo(){
         List<Livre> livresDispo = livreDao.findLivresByDisponibleIsTrue();
         Random rand = new Random();
@@ -39,7 +53,7 @@ public class LivreController {
     }
 
     @CrossOrigin("*")
-    @GetMapping(value="/api/filtrerLivres")
+    @GetMapping(value="/api/Livre/filtrerLivres")
     public List<Livre> filtrerLivres(@RequestParam(name="typeRecherche") String typeRecherche, @RequestParam(name="champRecherche") String champRecherche){
         List<Livre> resultat = new ArrayList<Livre>();
 
@@ -67,7 +81,7 @@ return resultat;
 
 
 
-    @PostMapping(value="/api/ajouterLivre")
+    @PostMapping(value="/api/Livre/ajouterLivre")
     public void ajouterLivre(@RequestBody Livre livre){
         livreDao.save(livre);
     }
