@@ -8,7 +8,10 @@ import com.biblioP7.dao.EmpruntDao;
 import com.biblioP7.dao.LivreDao;
 import com.biblioP7.dao.MembreDao;
 import com.biblioP7.beans.CreationEmprunt;
+import com.biblioP7.security.JwtTokenUtil;
+import com.biblioP7.security.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.BufferedWriter;
@@ -31,6 +34,18 @@ public class EmpruntController {
 
     @Autowired
     private LivreDao livreDao ;
+
+
+    // on va utiliser cette classe utilitaire pour parser le token reçu, notamment pour la méthode prolongerEmprunt
+    // et vérifier que c'est bien le bon membre qui prolonge son propre emprunt et pas celui du voisin
+//
+//
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
+
+
+    @Autowired
+    private UserDetailsServiceImpl userDetails;
 
 
 
@@ -97,9 +112,26 @@ public class EmpruntController {
 
     @CrossOrigin("*")
     @RequestMapping(value="/api/prolongerEmprunt/{id}", method= RequestMethod.GET)
-    public Emprunt prolongerEmprunt(@PathVariable int id){
+    public Emprunt prolongerEmprunt(@PathVariable int id, @RequestHeader("Authorization") String token){
+        System.out.println("Le token du header est :" + token);
 
+        token = token.substring(7);
         Emprunt empruntAProlonger = empruntDao.findById(id);
+        // on recherche le membre Userdetails concerné par l'emprunt à prolonger :
+
+        String emailMembre = empruntAProlonger.getMembre().getEmail();
+        System.out.println(emailMembre);
+
+        UserDetails user = userDetails.loadUserByUsername(emailMembre);
+
+
+        //on regarde si le token reçu dans la requête correspond bien au membre
+        boolean isTokenValide = jwtTokenUtil.validateToken(token, user);
+
+        // on traite la requête uniquement si le token a été validé
+
+        if (isTokenValide){
+
 
         if(empruntAProlonger.isProlonge()){
             return null;
@@ -118,6 +150,11 @@ public class EmpruntController {
             System.out.println("l'emprunt n° " + empruntAProlonger.getId() + " a bien été prolongé !");
             return empruntAProlonger;
 
+        }}
+
+        else {
+
+            return null;
         }
 
 
