@@ -10,6 +10,8 @@ import com.biblioP7.dao.MembreDao;
 import com.biblioP7.beans.CreationEmprunt;
 import com.biblioP7.security.JwtTokenUtil;
 import com.biblioP7.security.UserDetailsServiceImpl;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -25,6 +27,10 @@ import java.util.List;
 
 @RestController
 public class EmpruntController {
+
+    private static final Logger logger = LoggerFactory.getLogger(EmpruntController.class);
+
+
 
     @Autowired
     private EmpruntDao empruntDao;
@@ -87,6 +93,7 @@ public class EmpruntController {
 
         if (!livre.isDisponible()){
             //le livre n'est pas disponible, on ne peut pas l'emprunter !
+            logger.error("Impossible de créer l'emprunt : Membre =" + membre.getEmail() + " Livre =" + livre.getId() );
             return null;
 
         }
@@ -105,6 +112,7 @@ public class EmpruntController {
             //passage et sauvegarde du livre en tant que non disponible (à modifier plus tard si nous gérons la quantité ?)
             livre.setDisponible(false);
             livreDao.save(livre);
+            logger.warn("Nouvel emprunt créé id = " + nouvelEmprunt.getId() + " membre = " + nouvelEmprunt.getMembre().getNom() + " livre = " + nouvelEmprunt.getLivre().getTitre() );
             return nouvelEmprunt;
         }
 
@@ -113,14 +121,12 @@ public class EmpruntController {
     @CrossOrigin("*")
     @RequestMapping(value="/api/prolongerEmprunt/{id}", method= RequestMethod.GET)
     public Emprunt prolongerEmprunt(@PathVariable int id, @RequestHeader("Authorization") String token){
-        System.out.println("Le token du header est :" + token);
 
         token = token.substring(7);
         Emprunt empruntAProlonger = empruntDao.findById(id);
         // on recherche le membre Userdetails concerné par l'emprunt à prolonger :
 
         String emailMembre = empruntAProlonger.getMembre().getEmail();
-        System.out.println(emailMembre);
 
         UserDetails user = userDetails.loadUserByUsername(emailMembre);
 
@@ -134,7 +140,9 @@ public class EmpruntController {
 
 
         if(empruntAProlonger.isProlonge()){
+            logger.info("impossible de prolonger l'emprunt " + empruntAProlonger.getId());
             return null;
+
 
         } else {
             empruntAProlonger.setProlonge(true);
@@ -147,7 +155,7 @@ public class EmpruntController {
 
             empruntAProlonger.setFinDate(dateFinBis);
             empruntDao.save(empruntAProlonger);
-            System.out.println("l'emprunt n° " + empruntAProlonger.getId() + " a bien été prolongé !");
+            logger.warn("l'emprunt n° " + empruntAProlonger.getId() + " a bien été prolongé !");
             return empruntAProlonger;
 
         }}
@@ -177,6 +185,7 @@ public class EmpruntController {
         livreDao.save(livreRendu);
         empruntDao.save(emprunt);
 
+        logger.warn("Arrêt de l'emprunt " + emprunt.getId());
         return livreRendu;
 
 
@@ -219,6 +228,7 @@ public class EmpruntController {
                     } catch(Exception error){
             resultat = "Le batch a échoué !" + error;
         }
+        logger.warn(resultat);
         return resultat;
     }
 
@@ -239,8 +249,8 @@ public class EmpruntController {
 
 
     private void fichierMails(List<Emprunt> empruntsEchus, List<String> messages) throws IOException {
-        System.out.println("Emprunts échus : \n" + empruntsEchus);
-        System.out.println("Messages générés : \n" + messages);
+//        System.out.println("Emprunts échus : \n" + empruntsEchus);
+//        System.out.println("Messages générés : \n" + messages);
         try{
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
             String dateString = dateFormat.format(new Date());
@@ -251,7 +261,8 @@ public class EmpruntController {
             bw.close();
 
         } catch (IOException error){
-            System.out.println("IO Exception interceptée : " + error);
+//            System.out.println("IO Exception interceptée : " + error);
+            logger.error("problème dans la génération des mails auto " + error);
         }
 
     }
