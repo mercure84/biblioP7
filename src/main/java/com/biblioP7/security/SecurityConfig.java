@@ -80,6 +80,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy((SessionCreationPolicy.STATELESS));
 
+        //autorisation pour les urls...
+        http.authorizeRequests().antMatchers("/**").permitAll();
+
         http.authorizeRequests().antMatchers("/api/login", "/", "/api/ajouterMembre", "/api/Livre/nbLivres").permitAll();
         http.authorizeRequests().antMatchers("/api/listeEmprunts", "/api/creerEmprunt",
                 "/api/stopperEmprunt/{id}", "/api/listeEmpruntsExpires", "/api/runBatch",

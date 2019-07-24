@@ -1,4 +1,4 @@
-package com.biblioP7.controllers;
+package com.biblioP7.restControllers;
 
 
 import com.biblioP7.beans.Livre;
