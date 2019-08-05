@@ -1,5 +1,7 @@
 package com.biblioP7.webController;
 
+import com.biblioP7.beans.Livre;
+import com.biblioP7.restControllers.LivreController;
 import com.biblioP7.security.JwtRequest;
 import com.biblioP7.webController.tools.LoginBean;
 import org.springframework.stereotype.Controller;
@@ -15,7 +17,7 @@ public class SignInController {
 
     @RequestMapping("/signIn")
     public String signInPage (Model model){
-//        model.addAttribute("loginBean", new LoginBean());
+        model.addAttribute("loginBean", new LoginBean());
         return "signIn";
     }
 
@@ -25,27 +27,21 @@ public class SignInController {
     @PostMapping("/signIn")
     public void seConnecter(@ModelAttribute LoginBean loginBean){
 
-        String uri = "http://localhost:8080/api/login";
+        String uri = "http://localhost:8080/api/Livre/randomLivre";
 
-        LoginBean loginBeanVO = new LoginBean();
-        loginBeanVO.setUsername(loginBean.getUsername());
-        loginBeanVO.setPassword(loginBean.getPassword());
+        System.out.println("email = " + loginBean.getUsername() + ", pass = " + loginBean.getPassword() );
+
 
         RestTemplate restTemplate = new RestTemplate();
 
-        LoginBean reponse = restTemplate.postForObject(uri, loginBeanVO, LoginBean.class);
+        Livre livreRandom = restTemplate.getForObject(uri, Livre.class);
 
 
-        System.out.println(reponse);
+        System.out.println(livreRandom.toString());
 
 
 
     }
-
-
-
-
-
 
 
 
