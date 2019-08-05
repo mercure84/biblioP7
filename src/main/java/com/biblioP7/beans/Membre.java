@@ -22,10 +22,10 @@ public class Membre {
     private int id;
 
     @Column(name="nom")
-    private String nom;
+    private String nom="NomMembre";
 
     @Column(name="prenom")
-    private String prenom;
+    private String prenom = "PrénomMembre";
 
     @Column(name="email")
     private String email;

@@ -15,7 +15,7 @@ public interface EmpruntServiceClient {
     @RequestMapping(value="/api/listeEmprunts", method= RequestMethod.GET)
     List<Emprunt> listeEmprunts();
 
-    @RequestMapping(value="/api/EmpruntsMembre/{membreId}")
+    @RequestMapping(value="/api/EmpruntsMembre/{membreId}", method = RequestMethod.GET)
     List<Emprunt> empruntsParMembre(@PathVariable int membreId);
 
 
@@ -28,13 +28,14 @@ public interface EmpruntServiceClient {
     Emprunt prolongerEmprunt(@PathVariable int id, @RequestHeader("Authorization") String token);
 
 
-    @RequestMapping(value="/api/stopperEmprunt/{id}")
+    @RequestMapping(value="/api/stopperEmprunt/{id}", method = RequestMethod.GET)
     Livre livreRendu(@PathVariable int id);
 
 
     @CrossOrigin("*")
     @RequestMapping(value="/api/listeEmpruntsExpires", method= RequestMethod.GET)
     List<Emprunt> empruntsExpires ();
+
 
 
 }
