@@ -27,8 +27,6 @@ public class DashBoardController {
 
         List<Emprunt> listeEmprunts = empruntServiceClient.empruntsParMembre(1);
 
-
-        System.out.println("la liste des emprunts de notre membre est : " + listeEmprunts);
         model.addAttribute("membre", testMembre);
         model.addAttribute("listeEmprunts", listeEmprunts);
         return "dashboard";
