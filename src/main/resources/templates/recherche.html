@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <div th:include="bootstrapcdn.html"/>
+    <meta charset="utf-8">
+    <title>Bibliothèque P7 - OpenClassRooms - Parcours DA Java - Projet 7</title>
+</head>
+<body>
+
+<div th:include="navbar.html"/>
+
+<div class="container">
+
+    <div class="row">
+        <div class="text-center">
+
+
+<form name="rechercheLivre" th:action="@{/recherche}" th:object="${filtre}" method='POST'>
+
+
+    <table><tbody>
+
+    <tr><td><label>
+        <input type="radio" name="typeRecherche" value="Titre" th:field="*{type}" required />
+        Par titre
+    </label>
+
+    </td></tr>
+
+    <tr><td>
+        <label>
+            <input type="radio" name="typeRecherche" value="Auteur" th:field="*{type}" />
+            Par nom d'auteur
+        </label></td></tr>
+
+    <tr><td>
+        <label>
+            <input type="radio" name="typeRecherche" value="Editeur" th:field="*{type}" />
+            Par éditeur
+        </label></td></tr>
+    </tbody></table>
+
+    <br />
+    <label htmlFor="champRecherche">Saisir un mot clef</label>
+    <input
+            type="text"
+            id="champRecherche"
+            name="champRecherche"
+            th:field="*{champs}"
+            required
+    />
+    <br />
+    <button>Rechercher</button>
+</form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

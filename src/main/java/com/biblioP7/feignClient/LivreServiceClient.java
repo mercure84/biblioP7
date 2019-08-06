@@ -12,24 +12,24 @@ import java.util.Map;
 public interface LivreServiceClient {
 
 
-    @RequestMapping(value="/api/Livre/listeLivres", method= RequestMethod.GET)
+    @RequestMapping(value="/1api/Livre/listeLivres", method= RequestMethod.GET)
     List<Livre> listeLivres();
 
 
-    @RequestMapping(value="/api/Livre/nbLivres", method= RequestMethod.GET)
+    @RequestMapping(value="/1api/Livre/nbLivres", method= RequestMethod.GET)
     Map<String, Integer> nbLivres();
 
 
-    @GetMapping(value="/api/Livre/{id}")
+    @GetMapping(value="/1api/Livre/{id}")
     Livre detailLivre(@PathVariable int id);
 
-    @GetMapping(value="/api/Livre/randomLivre")
+    @GetMapping(value="/1api/Livre/randomLivre")
     Livre randomLivreDispo();
 
-    @GetMapping(value="/api/Livre/filtrerLivres")
+    @GetMapping(value="/1api/Livre/filtrerLivres")
     List<Livre> filtrerLivres(@RequestParam(name="typeRecherche") String typeRecherche, @RequestParam(name="champRecherche") String champRecherche);
 
-    @PostMapping(value="/api/Livre/ajouterLivre")
+    @PostMapping(value="/1api/Livre/ajouterLivre")
     void ajouterLivre(@RequestBody Livre livre);
 
 }

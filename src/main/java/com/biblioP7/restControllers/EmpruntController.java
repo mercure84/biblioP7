@@ -65,9 +65,11 @@ public class EmpruntController {
     public List<Emprunt> empruntsParMembre(@PathVariable int membreId){
         Membre membre = membreDao.findById(membreId);
 
-        List<Emprunt> listeEmprunt = empruntDao.findEmpruntsByMembre(membre);
+        List<Emprunt> listeEmprunts = empruntDao.findEmpruntsByMembre(membre);
 
-        return listeEmprunt;
+        logger.warn("[REST] Une liste d'emprunt est demandée pour le membre " + membre.getEmail() + " et nous retournons les infos : " + listeEmprunts);
+
+        return listeEmprunts;
     }
 
 

@@ -3,13 +3,20 @@ package com.biblioP7.restControllers;
 
 import com.biblioP7.beans.Livre;
 import com.biblioP7.dao.LivreDao;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 
 @RestController
 public class LivreController {
+
+    private static final Logger logger = LoggerFactory.getLogger(LivreController.class);
+
 
     @Autowired
     private LivreDao livreDao;
@@ -54,12 +61,10 @@ public class LivreController {
 
     @CrossOrigin("*")
     @GetMapping(value="/api/Livre/filtrerLivres")
-    public List<Livre> filtrerLivres(@RequestParam(name="typeRecherche") String typeRecherche, @RequestParam(name="champRecherche") String champRecherche){
+    public ResponseEntity<?> filtrerLivres(@RequestParam(name="typeRecherche") String typeRecherche, @RequestParam(name="champRecherche") String champRecherche){
+
+        try{
         List<Livre> resultat = new ArrayList<Livre>();
-
-        //champRecherche = champRecherche.replaceAll("[\\p{InCombiningDiacriticalMarks}]", "");
-
-
 
         switch(typeRecherche){
             case "Titre":
@@ -75,7 +80,15 @@ public class LivreController {
                 break;
 
         }
-return resultat;
+
+        logger.info("[REST] Une recherche a été demandée, le résultat comporte " + resultat.size() + " ouvrages !");
+
+            return new ResponseEntity<>(resultat, HttpStatus.OK);
+        } catch (Exception e) {
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Erreur " + e );        }
+
+
     }
 
 

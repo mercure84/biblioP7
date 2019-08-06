@@ -35,7 +35,7 @@
                             <div class="card">
                                 <div class="card-header">S'enregistrer</div>
                                 <div class="card-body">
-                                    <form name="my-form" action="#" th:action="@{/signUp}" th:object="${membre}" method="post">
+                                    <form name="my-form" action="#" th:action="@{/signUp}" th:object="${registerForm}" method="post">
 
 
                                         <div class="form-group row">
@@ -68,9 +68,9 @@
                                         </div>
 
                                         <div class="form-group row">
-                                            <label for="telephone" class="col-md-4 col-form-label text-md-right">Téléphone</label>
+                                            <label for="repassword" class="col-md-4 col-form-label text-md-right">Confirmer le mot de passe</label>
                                             <div class="col-md-6">
-                                                <input type="text" id="telephone" class="form-control" th:field="*{portable}">
+                                                <input type="password" id="repassword" class="form-control" th:field="*{repassword}">
                                             </div>
                                         </div>
                                         <div class="col-md-6 offset-md-4">

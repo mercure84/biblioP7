@@ -26,6 +26,8 @@
 
     <div class="row">
 
+
+
            <h2>Mes emprunts en cours</h2>
 
             <table style="margin-top: 10px" class="table">
@@ -40,20 +42,14 @@
 
                 </tr></thead>
                 <tbody>
-<!--                <tr  th:each="ligneE : ${empruntList}">-->
-<!--                    <td th:text="${ligneE.getTopo().getNom()}">Nom Topo</td>-->
+                <tr  th:each="ligneE : ${listeEmprunts}">
+                    <td th:text="${ligneE.getLivre().getTitre()}">Nom Topo</td>
+                    <td th:text="${#dates.format(ligneE.getDebutDate(), 'dd-MM-yyyy')}">StartDate</td>
+                    <td th:text="${#dates.format(ligneE.getFinDate(), 'dd-MM-yyyy')}">EndDate</td>
+                    <td th:text="${ligneE.isRendu()}">Rendu</td>
+                    <td th:text="${ligneE.isProlonge()}">Prolongé</td>
 
-
-<!--                    <td><a th:href="'topoDetails?topoId=' + ${ligneE.getTopo().getId()}" >-->
-<!--                        <i class="fas fa-search"></i>-->
-<!--                        </span>-->
-<!--                    </a></td>-->
-
-<!--                    <td th:text="${ligneE.joursRestants(ligneE.getDateFinEmprunt())}">Jours</td>-->
-<!--                    <td><a th:href="'empruntRestituer?topoId=' + ${ligneE.getTopo().getId()}">-->
-<!--                        <i class="fas fa-hand-paper"></i>-->
-<!--                    </a>-->
-<!--                </tr>-->
+                </tr>
                 </tbody>
             </table>
 

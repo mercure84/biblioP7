@@ -5,6 +5,8 @@ import com.biblioP7.beans.Membre;
 import com.biblioP7.beans.RegisterForm;
 import com.biblioP7.dao.MembreDao;
 import com.biblioP7.security.EncryptedPasswordUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +15,10 @@ import java.util.List;
 
 @RestController
 public class MembreController {
+
+    private static final Logger logger = LoggerFactory.getLogger(MembreController.class);
+
+
 
     @Autowired
     private MembreDao membreDao;
