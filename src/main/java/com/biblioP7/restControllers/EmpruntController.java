@@ -61,6 +61,13 @@ public class EmpruntController {
         return emprunts;
     }
 
+    @CrossOrigin("*")
+    @GetMapping(value="/api/Emprunt/{id}")
+    public Emprunt detailEMprunt(@PathVariable int id){
+        return empruntDao.findById(id);
+    }
+
+
     @RequestMapping(value="/api/EmpruntsMembre/{membreId}")
     public List<Emprunt> empruntsParMembre(@PathVariable int membreId){
         Membre membre = membreDao.findById(membreId);

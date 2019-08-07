@@ -12,48 +12,78 @@
 <div class="container">
 
     <div class="row">
-        <div class="text-center">
+        <form name="rechercheLivre" th:action="@{/recherche}" th:object="${filtre}" method='POST'>
 
+            <h2> Rechercher un ouvrage dans la bibliothèque : </h2>
+            <table>
+                <tbody>
 
-<form name="rechercheLivre" th:action="@{/recherche}" th:object="${filtre}" method='POST'>
+                <tr>
+                    <td><label>
+                        <input type="radio" name="typeRecherche" value="Titre" th:field="*{type}" required/>
+                        Par titre
+                    </label>
 
+                    </td>
+                </tr>
 
-    <table><tbody>
+                <tr>
+                    <td>
+                        <label>
+                            <input type="radio" name="typeRecherche" value="Auteur" th:field="*{type}"/>
+                            Par nom d'auteur
+                        </label></td>
+                </tr>
 
-    <tr><td><label>
-        <input type="radio" name="typeRecherche" value="Titre" th:field="*{type}" required />
-        Par titre
-    </label>
+                <tr>
+                    <td>
+                        <label>
+                            <input type="radio" name="typeRecherche" value="Editeur" th:field="*{type}"/>
+                            Par éditeur
+                        </label></td>
+                </tr>
+                </tbody>
+            </table>
 
-    </td></tr>
-
-    <tr><td>
-        <label>
-            <input type="radio" name="typeRecherche" value="Auteur" th:field="*{type}" />
-            Par nom d'auteur
-        </label></td></tr>
-
-    <tr><td>
-        <label>
-            <input type="radio" name="typeRecherche" value="Editeur" th:field="*{type}" />
-            Par éditeur
-        </label></td></tr>
-    </tbody></table>
-
-    <br />
-    <label htmlFor="champRecherche">Saisir un mot clef</label>
-    <input
-            type="text"
-            id="champRecherche"
-            name="champRecherche"
-            th:field="*{champs}"
-            required
-    />
-    <br />
-    <button>Rechercher</button>
-</form>
-        </div>
+            <br/>
+            <label htmlFor="champRecherche">Saisir un mot clef</label>
+            <input
+                    type="text"
+                    id="champRecherche"
+                    name="champRecherche"
+                    th:field="*{champs}"
+                    required
+            />
+            <button>Rechercher</button>
+        </form>
     </div>
+
+    <div th:if="${afficherResultat}" class="row">
+
+        <h2> Le résultat de votre recherche : <span th:text="${resultat.size()}"/> ouvrage(s) </h2>
+
+        <table th:if="${resultat.size()>0}" style="margin-top: 10px" class="table">
+            <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Auteur</th>
+                <th>Editeur</th>
+                <th>Disponible</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="ligneL : ${resultat}">
+                <td th:text="${ligneL.getTitre()}">Nom Livre</td>
+                <td th:text="${ligneL.getAuteurNom() + ' ' + ligneL.getAuteurPrenom()}">Auteur</td>
+                <td th:text="${ligneL.getEditeur()}">Editeur</td>
+                <td th:text="${ligneL.isDisponible()}">Dispo</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
 </div>
 </body>
 </html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="fr">
+<div th:include="bootstrapcdn.html"/>
+<head>
+    <meta charset="utf-8">
+    <title>Bibliothèque P7</title>
+</head>
+
+<body>
+
+<!-- nav bar -->
+<div th:include="navbar"/>
+
+
+<div class="container">
+
+    <h2> Confirmez vous la prolongation de votre emprunt ?</h2>
+
+    <p>Livre emprunté : <span th:text="${emprunt.getLivre().getTitre() + ' ' + emprunt.getLivre().getIsbn()}"></span></p>
+    <p>Date initial de l'emprunt : <span th:text="${#dates.format(emprunt.getDebutDate(), 'dd-MM-yyyy')}"></span></p>
+    <p>Date limite de retour : <span th:text="${#dates.format(emprunt.getFinDate(), 'dd-MM-yyyy')}"></span></p>
+
+    <button>Prolonger de 4 semaine</button>   <button th:action="${'/dashboard'}">Annuler</button>
+
+
+</div>
+
+</body>
+</html>
+</html>

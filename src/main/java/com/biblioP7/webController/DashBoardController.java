@@ -32,4 +32,16 @@ public class DashBoardController {
         return "dashboard";
 }
 
+    @GetMapping("/prolongerEmprunt")
+    public String prolongerEmprunt(Model model, String empruntId){
+        System.out.println("on veut prolonger l'emprunt n° " + empruntId);
+        Emprunt emprunt = empruntServiceClient.detailEmprunt(Integer.valueOf(empruntId));
+
+        model.addAttribute("emprunt", emprunt);
+        return "confirmerProlongation";
+    }
+
+
+
+
 }

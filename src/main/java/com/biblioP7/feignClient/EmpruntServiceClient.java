@@ -18,6 +18,8 @@ public interface EmpruntServiceClient {
     @RequestMapping(value="/api/EmpruntsMembre/{membreId}", method = RequestMethod.GET)
     List<Emprunt> empruntsParMembre(@PathVariable int membreId);
 
+    @GetMapping(value="/api/Emprunt/{empruntId}")
+    Emprunt detailEmprunt(@PathVariable int empruntId);
 
 
     @PostMapping(value="/api/creerEmprunt")
