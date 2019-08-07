@@ -21,7 +21,7 @@
     <p>Date initial de l'emprunt : <span th:text="${#dates.format(emprunt.getDebutDate(), 'dd-MM-yyyy')}"></span></p>
     <p>Date limite de retour : <span th:text="${#dates.format(emprunt.getFinDate(), 'dd-MM-yyyy')}"></span></p>
 
-    <button>Prolonger de 4 semaine</button>   <button th:action="${'/dashboard'}">Annuler</button>
+    <a th:href="${'/confirmerProlongation?empruntId='+emprunt.getId()}"><button>Prolonger de 4 semaines</button></a>   <a th:href="${'/dashboard'}"><button>Annuler</button></a>
 
 
 </div>

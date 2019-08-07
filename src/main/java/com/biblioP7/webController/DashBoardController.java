@@ -20,7 +20,7 @@ public class DashBoardController {
 
 
     @GetMapping("/dashboard")
-    public String senregistrerForm (Model model){
+    public String senregistrerForm(Model model) {
 
         Membre testMembre = new Membre();
         //System.out.println(testMembre);
@@ -30,10 +30,10 @@ public class DashBoardController {
         model.addAttribute("membre", testMembre);
         model.addAttribute("listeEmprunts", listeEmprunts);
         return "dashboard";
-}
+    }
 
     @GetMapping("/prolongerEmprunt")
-    public String prolongerEmprunt(Model model, String empruntId){
+    public String prolongerEmprunt(Model model, String empruntId) {
         System.out.println("on veut prolonger l'emprunt n° " + empruntId);
         Emprunt emprunt = empruntServiceClient.detailEmprunt(Integer.valueOf(empruntId));
 
@@ -41,7 +41,15 @@ public class DashBoardController {
         return "confirmerProlongation";
     }
 
-
+    @GetMapping("/confirmerProlongation")
+    public String confirmerProlongation(Model model, String empruntId) {
+        try {
+            empruntServiceClient.prolongerEmprunt(Integer.valueOf(empruntId), "prout fake token");
+        } catch (Exception e){
+            System.out.println("Erreur :" + e);
+        }
+                return "redirect:/dashboard";
+    }
 
 
 }

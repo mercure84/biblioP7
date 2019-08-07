@@ -44,8 +44,6 @@ public class EmpruntController {
 
     // on va utiliser cette classe utilitaire pour parser le token reçu, notamment pour la méthode prolongerEmprunt
     // et vérifier que c'est bien le bon membre qui prolonge son propre emprunt et pas celui du voisin
-//
-//
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
