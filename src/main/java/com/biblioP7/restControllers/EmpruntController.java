@@ -119,7 +119,7 @@ public class EmpruntController {
             //passage et sauvegarde du livre en tant que non disponible (à modifier plus tard si nous gérons la quantité ?)
             livre.setDisponible(false);
             livreDao.save(livre);
-            logger.warn("Nouvel emprunt créé id = " + nouvelEmprunt.getId() + " membre = " + nouvelEmprunt.getMembre().getNom() + " livre = " + nouvelEmprunt.getLivre().getTitre() );
+            logger.warn(" [REST] Nouvel emprunt créé id = " + nouvelEmprunt.getId() + " membre = " + nouvelEmprunt.getMembre().getNom() + " livre = " + nouvelEmprunt.getLivre().getTitre() );
             return nouvelEmprunt;
         }
 

@@ -30,7 +30,7 @@
                         <div class="card-header">Login</div>
                         <div class="card-body">
 
-                            <form name='f' th:action="@{/signIn}" th:object="${login}" method='POST'>
+                            <form name='f' th:action="@{/client/signIn}" th:object="${login}" method='POST'>
 
                                 <div class="form-group row">
                                     <label for="username" class="col-md-4 col-form-label text-md-right">Email</label>
@@ -53,7 +53,7 @@
                                         Se connecter
                                     </button>
                                     <p><a href="#"> Mot de passe oublié ?</a></p>
-                                    <p class="centrer"> <a href="/signUp"> Pas encore inscrit ?</a></p>
+                                    <p class="centrer"> <a href="/client/signUp"> Pas encore inscrit ?</a></p>
                                 </div>
 
                             </form>

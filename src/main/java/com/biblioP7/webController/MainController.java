@@ -13,20 +13,17 @@ public class MainController {
 
     @RequestMapping(value="navbar", method = RequestMethod.GET)
     public String afficherNavbar(){
-
-
-
         return "navbar";
         }
 
 
-    @RequestMapping(value="/", method = RequestMethod.GET)
+    @RequestMapping(value="/client", method = RequestMethod.GET)
     public String index (){
 
         return "index";
     }
 
-    @RequestMapping(value="/error", method = RequestMethod.GET)
+    @RequestMapping(value="/client/error", method = RequestMethod.GET)
     public String error(){
 
 

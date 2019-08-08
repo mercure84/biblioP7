@@ -6,6 +6,7 @@ import com.biblioP7.feignClient.MembreServiceClient;
 
 import com.biblioP7.security.JwtRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,22 +22,24 @@ public class SignInController {
     MembreServiceClient membreServiceClient;
 
 
-    @GetMapping("/signIn")
+    @GetMapping("/client/signIn")
     public String signInPage (Model model){
         model.addAttribute("login", new LoginForm());
         return "signIn";
     }
 
 
-    @PostMapping("/signIn")
-    public String seConnecter(@ModelAttribute LoginForm login){
+    @PostMapping("/client/signIn")
+    public String seConnecter(@ModelAttribute LoginForm login, Model model){
 
         try {
 
             JwtRequest jwtRequest = new JwtRequest();
             jwtRequest.setPassword(login.getPassword());
             jwtRequest.setUsername(login.getEmail());
-            membreServiceClient.login(jwtRequest);
+            ResponseEntity<?> reponseAuth = membreServiceClient.login(jwtRequest);
+            model.addAttribute("token" , reponseAuth );
+            System.out.println(reponseAuth);
             return "index";
 
         } catch (Exception e){

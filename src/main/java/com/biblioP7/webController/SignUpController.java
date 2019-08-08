@@ -20,14 +20,14 @@ public class SignUpController {
     MembreServiceClient membreServiceClient;
 
 
-    @GetMapping("/signUp")
+    @GetMapping("/client/signUp")
     public String afficherSignUp (Model model){
         model.addAttribute("registerForm", new RegisterForm());
         return "signUp";
     }
 
 
-    @PostMapping("/signUp")
+    @PostMapping("/client/signUp")
     public String soumettreSignUp (@ModelAttribute RegisterForm registerForm){
 
 

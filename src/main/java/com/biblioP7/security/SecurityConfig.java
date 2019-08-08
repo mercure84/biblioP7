@@ -81,8 +81,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.sessionManagement().sessionCreationPolicy((SessionCreationPolicy.STATELESS));
 
         //autorisation pour les urls...
-        http.authorizeRequests().antMatchers("/**").permitAll();
 
+        //autorisation du site web front end (reactJS pas concerné).
+        http.authorizeRequests().antMatchers("/client/**", "/img/**", "favicon.ico").permitAll();
+
+
+
+        //autorisation sur les controllers restful
         http.authorizeRequests().antMatchers("/api/login", "/", "/api/ajouterMembre", "/api/Livre/nbLivres").permitAll();
         http.authorizeRequests().antMatchers("/api/listeEmprunts", "/api/creerEmprunt",
                 "/api/stopperEmprunt/{id}", "/api/listeEmpruntsExpires", "/api/runBatch",

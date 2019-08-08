@@ -19,7 +19,7 @@ public class RechercheLivreController {
     @Autowired
     LivreServiceClient livreServiceClient;
 
-    @GetMapping("/recherche")
+    @GetMapping("/client/recherche")
     public String  afficherRecherche(Model model){
         model.addAttribute("filtre", new FiltreRecherche());
         model.addAttribute("afficherResultat", false);
@@ -28,7 +28,7 @@ public class RechercheLivreController {
         }
 
 
-     @PostMapping("/recherche")
+     @PostMapping("/client/recherche")
      public String rechercherLivre(@ModelAttribute FiltreRecherche filtre, Model model){
          List<Livre> resultat = livreServiceClient.filtrerLivres(filtre.getType(), filtre.getChamps());
          model.addAttribute("resultat", resultat);
