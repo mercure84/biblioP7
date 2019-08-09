@@ -58,6 +58,15 @@
 
                             </form>
 
+                            <div th:if="${connexion == 'nOK'}">
+
+                                <p>La connexion a échoué, veuillez recommencer !</p>
+
+
+                            </div>
+
+
+
                             <!-- /login?error=true -->
 <!--                            <div style="color:red" th:if="${#request.getParameter('error')=='true'}">-->
 <!--                                <span th:text="${#request.getParameter('error')=='true'} ? 'MOT DE PASSE / PSEUDO INCORRECT' : ' '"></span>-->

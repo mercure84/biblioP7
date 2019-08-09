@@ -19,6 +19,16 @@
             <h3>Une version ReactJS de cette API est disponible <a href="http://vps671888.ovh.net:3000/login">ICI</a>
             </h3>
         </div>
+
+        <div th:if="${connexion == 'OK'}">
+
+            <p>Vous êtes à présent connecté</p>
+            <p>Votre token est : <span th:text="${token}"></span></p>
+
+
+        </div>
+
+
     </div>
 </div>
 
