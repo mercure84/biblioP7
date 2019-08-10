@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 
 @Controller
-@SessionAttributes("reponseAuth")
+@SessionAttributes("tokenJWT")
 public class SignInController {
 
 
@@ -28,17 +28,13 @@ public class SignInController {
     @GetMapping("/client/signIn")
     public String signInPage(Model model, String connexion) {
         model.addAttribute("login", new LoginForm());
-        try{
-            if(connexion.equals("erreur")){
+        try {
+            if (connexion.equals("erreur")) {
                 model.addAttribute("connexion", "nOK");
             }
+        } catch (Exception e) {
+
         }
-        catch(Exception e)
-
-    {
-
-    }
-
         return "signIn";
     }
 
@@ -54,7 +50,10 @@ public class SignInController {
             ResponseEntity<?> reponseAuth = membreServiceClient.login(jwtRequest);
             if (reponseAuth.getStatusCode().value() == 200) {
                 String token = reponseAuth.getBody().toString();
-                model.addAttribute("token", token);
+                System.out.println(token);
+                System.out.println(token.substring(7,token.length()-1));
+                String tokenJWT = "Bearer " + token;
+                model.addAttribute("tokenJWT", tokenJWT);
                 model.addAttribute("connexion", "OK");
                 return "index";
 
