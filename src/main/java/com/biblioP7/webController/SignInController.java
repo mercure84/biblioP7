@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import java.sql.SQLOutput;
+
 
 @Controller
 @SessionAttributes("tokenJWT")
@@ -50,9 +52,8 @@ public class SignInController {
             ResponseEntity<?> reponseAuth = membreServiceClient.login(jwtRequest);
             if (reponseAuth.getStatusCode().value() == 200) {
                 String token = reponseAuth.getBody().toString();
-                System.out.println(token);
-                System.out.println(token.substring(7,token.length()-1));
-                String tokenJWT = "Bearer " + token;
+                String tokenJWT = "Bearer " + token.substring(7,token.length()-1);
+                System.out.println("Token officiel = " + tokenJWT);
                 model.addAttribute("tokenJWT", tokenJWT);
                 model.addAttribute("connexion", "OK");
                 return "index";
