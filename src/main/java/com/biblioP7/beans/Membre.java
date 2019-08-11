@@ -1,5 +1,6 @@
 package com.biblioP7.beans;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -30,6 +31,7 @@ public class Membre {
     @Column(name="email")
     private String email;
 
+    @JsonIgnore
     @Column(name="password")
     private String password;
 

@@ -68,6 +68,9 @@ public class SignInController {
                 session.setAttribute("token", tokenJWT);
                 session.setAttribute("membreNom", membre.getNom());
                 session.setAttribute("membrePrenom", membre.getPrenom());
+                session.setAttribute("membreEmail", membre.getEmail());
+                session.setAttribute("membreId", membre.getId());
+                session.setAttribute("membre", membre);
 
                 return "redirect:/client";
 

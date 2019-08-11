@@ -31,6 +31,12 @@ public class MainController {
 
     }
 
+    @RequestMapping(value="/client/logout", method = RequestMethod.GET)
+    public String logout(HttpSession session){
+        session.invalidate();
+        return "index";
+    }
+
 
 
 }

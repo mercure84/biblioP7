@@ -20,7 +20,7 @@
             </h3>
         </div>
 
-        <div th:if="${session != null}">
+        <div th:if="${!session.isEmpty()}">
 
             <p>Vous êtes connecté en tant que <span th:text="${session.membrePrenom + ' ' + session.membreNom}"</p>
 
