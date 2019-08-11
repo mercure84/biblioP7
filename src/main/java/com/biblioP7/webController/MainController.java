@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpSession;
 import java.security.Principal;
 
 @Controller
@@ -18,8 +19,7 @@ public class MainController {
 
 
     @RequestMapping(value="/client", method = RequestMethod.GET)
-    public String index (){
-
+    public String index (HttpSession session){
         return "index";
     }
 

@@ -19,7 +19,7 @@ public interface MembreServiceClient {
 
 
     @GetMapping(value="/api/Membre/data/{email}")
-    Membre dataMembre(@PathVariable String email);
+    Membre dataMembre(@RequestHeader("Authorization") String token, @PathVariable String email);
 
 
 

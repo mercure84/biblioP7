@@ -20,10 +20,9 @@
             </h3>
         </div>
 
-        <div th:if="${connexion == 'OK'}">
+        <div th:if="${session != null}">
 
-            <p>Vous êtes à présent connecté</p>
-            <p>Votre token est : <span th:text="${tokenJWT}"></span></p>
+            <p>Vous êtes connecté en tant que <span th:text="${session.membrePrenom + ' ' + session.membreNom}"</p>
 
         </div>
 
