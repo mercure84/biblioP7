@@ -40,12 +40,14 @@ public class DashBoardController {
     }
 
     @GetMapping("/client/prolongerEmprunt")
-    public String prolongerEmprunt(Model model, String empruntId) {
-        System.out.println("on veut prolonger l'emprunt n° " + empruntId);
-        Emprunt emprunt = empruntServiceClient.detailEmprunt(Integer.valueOf(empruntId));
+    public String prolongerEmprunt(Model model, String empruntId, HttpSession session) {
+        String token = session.getAttribute("token").toString();
 
+        System.out.println("on veut prolonger l'emprunt n° " + empruntId);
+        Emprunt emprunt = empruntServiceClient.detailEmprunt(token, Integer.valueOf(empruntId));
+        System.out.println("Emprunt à prolonger = " + emprunt);
         model.addAttribute("emprunt", emprunt);
-        return "client/confirmerProlongation";
+        return "confirmerProlongation";
     }
 
     @GetMapping("/client/confirmerProlongation")
@@ -54,7 +56,7 @@ public class DashBoardController {
 
         try {
             empruntServiceClient.prolongerEmprunt(token, Integer.valueOf(empruntId));
-            return "redirect:/dashboard";
+            return "redirect:/client/dashboard";
 
         } catch (Exception e){
             System.out.println("Erreur :" + e);

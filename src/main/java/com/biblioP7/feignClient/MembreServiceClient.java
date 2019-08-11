@@ -14,7 +14,7 @@ import java.util.List;
 public interface MembreServiceClient {
 
     @RequestMapping(value="/api/listeMembres", method= RequestMethod.GET)
-    List<Membre> listeMembres();
+    List<Membre> listeMembres(@RequestHeader("Authorization") String token);
 
 
 
@@ -24,8 +24,10 @@ public interface MembreServiceClient {
 
 
     @GetMapping(value="/api/Membre/{id}")
-    Membre detailMembre(@PathVariable int id);
+    Membre detailMembre(@RequestHeader("Authorization") String token, @PathVariable int id);
 
+
+    //méthodes sans request TOKEN
 
     @PostMapping(value="/api/ajouterMembre")
     Membre ajouterMembre(@RequestBody RegisterForm userForm);

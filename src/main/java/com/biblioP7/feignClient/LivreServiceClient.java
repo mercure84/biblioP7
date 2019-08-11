@@ -21,15 +21,15 @@ public interface LivreServiceClient {
 
 
     @GetMapping(value="/api/Livre/{id}")
-    Livre detailLivre(@PathVariable int id);
+    Livre detailLivre(@RequestHeader("Authorization") String token, @PathVariable int id);
 
     @GetMapping(value="/api/Livre/randomLivre")
-    Livre randomLivreDispo();
+    Livre randomLivreDispo(@RequestHeader("Authorization") String token);
 
     @GetMapping(value="/api/Livre/filtrerLivres")
-    List<Livre> filtrerLivres(@RequestParam(name="typeRecherche") String typeRecherche, @RequestParam(name="champRecherche") String champRecherche);
+    List<Livre> filtrerLivres(@RequestHeader("Authorization") String token, @RequestParam(name="typeRecherche") String typeRecherche, @RequestParam(name="champRecherche") String champRecherche);
 
     @PostMapping(value="/api/Livre/ajouterLivre")
-    void ajouterLivre(@RequestBody Livre livre);
+    void ajouterLivre(@RequestHeader("Authorization") String token, @RequestBody Livre livre);
 
 }

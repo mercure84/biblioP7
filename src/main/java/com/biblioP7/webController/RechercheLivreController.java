@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -20,7 +21,7 @@ public class RechercheLivreController {
     LivreServiceClient livreServiceClient;
 
     @GetMapping("/client/recherche")
-    public String  afficherRecherche(Model model){
+    public String  afficherRecherche(Model model, HttpSession session) {
         model.addAttribute("filtre", new FiltreRecherche());
         model.addAttribute("afficherResultat", false);
         return "recherche";
@@ -29,8 +30,11 @@ public class RechercheLivreController {
 
 
      @PostMapping("/client/recherche")
-     public String rechercherLivre(@ModelAttribute FiltreRecherche filtre, Model model){
-         List<Livre> resultat = livreServiceClient.filtrerLivres(filtre.getType(), filtre.getChamps());
+     public String rechercherLivre(@ModelAttribute FiltreRecherche filtre, Model model, HttpSession session){
+
+         String token = session.getAttribute("token").toString();
+
+         List<Livre> resultat = livreServiceClient.filtrerLivres(token, filtre.getType(), filtre.getChamps());
          model.addAttribute("resultat", resultat);
          model.addAttribute("filtre", new FiltreRecherche());
          model.addAttribute("afficherResultat", true);

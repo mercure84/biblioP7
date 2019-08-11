@@ -18,10 +18,12 @@
     <h2> Confirmez vous la prolongation de votre emprunt ?</h2>
 
     <p>Livre emprunté : <span th:text="${emprunt.getLivre().getTitre() + ' ' + emprunt.getLivre().getIsbn()}"></span></p>
+
+
     <p>Date initial de l'emprunt : <span th:text="${#dates.format(emprunt.getDebutDate(), 'dd-MM-yyyy')}"></span></p>
     <p>Date limite de retour : <span th:text="${#dates.format(emprunt.getFinDate(), 'dd-MM-yyyy')}"></span></p>
 
-    <a th:href="${'/confirmerProlongation?empruntId='+emprunt.getId()}"><button>Prolonger de 4 semaines</button></a>   <a th:href="${'/dashboard'}"><button>Annuler</button></a>
+    <a th:href="${'/client/confirmerProlongation?empruntId='+emprunt.getId()}"><button>Prolonger de 4 semaines</button></a>   <a th:href="${'/client/dashboard'}"><button>Annuler</button></a>
 
 
 </div>

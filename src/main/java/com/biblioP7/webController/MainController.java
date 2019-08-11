@@ -13,7 +13,7 @@ import java.security.Principal;
 public class MainController {
 
     @RequestMapping(value="navbar", method = RequestMethod.GET)
-    public String afficherNavbar(){
+    public String afficherNavbar(HttpSession session){
         return "navbar";
         }
 

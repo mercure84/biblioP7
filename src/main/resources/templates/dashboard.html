@@ -47,7 +47,7 @@
                     <td th:text="${#dates.format(ligneE.getDebutDate(), 'dd-MM-yyyy')}">StartDate</td>
                     <td th:text="${#dates.format(ligneE.getFinDate(), 'dd-MM-yyyy')}">EndDate</td>
                     <td th:text="${ligneE.isRendu()}">Rendu</td>
-                    <td><a th:href="${'/prolongerEmprunt?empruntId='+ ligneE.getId()}"><button th:if="${!(ligneE.isProlonge()||ligneE.isRendu())}">+ 4 semaines</button></a></td>
+                    <td><a th:href="${'/client/prolongerEmprunt?empruntId='+ ligneE.getId()}"><button th:if="${!(ligneE.isProlonge()||ligneE.isRendu())}">+ 4 semaines</button></a><span th:if="${(ligneE.isProlonge()||ligneE.isRendu())}">Déjà prolongé ou non prolongeable</span></td>
 
                 </tr>
                 </tbody>

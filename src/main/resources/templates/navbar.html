@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html xmlns:th="http://www.thymeleaf.org">
 
 <nav class="navbar navbar-expand-sm bg-light">
 
@@ -10,21 +9,22 @@
         <li class="nav-item">
             <a class="nav-link" href="/">Accueil</a>
         </li>
-        <li class="nav-item">
+
+        <li th:if="${!session.isEmpty()}" class="nav-item">
             <a class="nav-link" href="/client/dashboard">Tableau de bord</a>
         </li>
 
-        <li class="nav-item">
+        <li th:if="${!session.isEmpty()}" class="nav-item">
             <a class="nav-link" href="/client/recherche">Rechercher un Ouvrage</a>
         </li>
 
-        <li class="nav-item">
+        <li th:if="${session.isEmpty()}" class="nav-item">
             <a class="nav-link" href="/client/signIn">Se Connecter</a>
         </li>
-        <li class="nav-item">
+        <li th:if="${session.isEmpty()}" class="nav-item">
             <a class="nav-link" href="/client/signUp">S'enregistrer</a>
         </li>
-        <li class="nav-item">
+        <li th:if="${!session.isEmpty()}" class="nav-item">
             <a class="nav-link" href="/client/logout">Se déconnecter</a>
         </li>
     </ul>
