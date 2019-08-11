@@ -12,11 +12,11 @@ import java.util.Map;
 public interface LivreServiceClient {
 
 
-    @RequestMapping(value="/api/Livre/listeLivres", method= RequestMethod.GET)
+    @GetMapping(value="/api/Livre/listeLivres")
     List<Livre> listeLivres();
 
 
-    @RequestMapping(value="/api/Livre/nbLivres", method= RequestMethod.GET)
+    @GetMapping(value="/api/Livre/nbLivres")
     Map<String, Integer> nbLivres();
 
 

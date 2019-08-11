@@ -2,28 +2,27 @@ package com.biblioP7.webController;
 
 
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 import javax.servlet.http.HttpSession;
-import java.security.Principal;
+
 
 @Controller
 public class MainController {
 
-    @RequestMapping(value="navbar", method = RequestMethod.GET)
+    @GetMapping(value="navbar")
     public String afficherNavbar(HttpSession session){
         return "navbar";
         }
 
 
-    @RequestMapping(value="/client", method = RequestMethod.GET)
+    @GetMapping(value="/client")
     public String index (HttpSession session){
         return "index";
     }
 
-    @RequestMapping(value="/client/error", method = RequestMethod.GET)
+    @GetMapping(value="/client/error")
     public String error(){
 
 
@@ -31,7 +30,7 @@ public class MainController {
 
     }
 
-    @RequestMapping(value="/client/logout", method = RequestMethod.GET)
+    @GetMapping(value="/client/logout")
     public String logout(HttpSession session){
         session.invalidate();
         return "index";

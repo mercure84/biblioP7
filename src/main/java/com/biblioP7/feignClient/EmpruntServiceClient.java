@@ -12,10 +12,10 @@ import java.util.List;
 public interface EmpruntServiceClient {
 
 
-    @RequestMapping(value="/api/listeEmprunts", method= RequestMethod.GET)
+    @GetMapping(value="/api/listeEmprunts")
     List<Emprunt> listeEmprunts(@RequestHeader("Authorization") String token);
 
-    @RequestMapping(value="/api/EmpruntsMembre/{membreId}", method = RequestMethod.GET)
+    @GetMapping(value="/api/EmpruntsMembre/{membreId}")
     List<Emprunt> empruntsParMembre(@RequestHeader("Authorization") String token, @PathVariable int membreId);
 
     @GetMapping(value="/api/Emprunt/{empruntId}")
@@ -26,16 +26,16 @@ public interface EmpruntServiceClient {
     Emprunt creerEmprunt(@RequestHeader("Authorization") String token, @RequestBody CreationEmprunt creationEmprunt);
 
 
-    @RequestMapping(value="/api/prolongerEmprunt/{id}", method= RequestMethod.GET)
+    @GetMapping(value="/api/prolongerEmprunt/{id}")
     Emprunt prolongerEmprunt(@RequestHeader("Authorization") String token, @PathVariable int id);
 
 
-    @RequestMapping(value="/api/stopperEmprunt/{id}", method = RequestMethod.GET)
+    @GetMapping(value="/api/stopperEmprunt/{id}")
     Livre livreRendu(@RequestHeader("Authorization") String token, @PathVariable int id);
 
 
     @CrossOrigin("*")
-    @RequestMapping(value="/api/listeEmpruntsExpires", method= RequestMethod.GET)
+    @GetMapping(value="/api/listeEmpruntsExpires")
     List<Emprunt> empruntsExpires (@RequestHeader("Authorization") String token);
 
 

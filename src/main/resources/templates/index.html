@@ -12,17 +12,41 @@
 <div class="container">
 
     <div class="row">
-        <div class="text-center">
+        <div style="text-align: center" class="col-md-12" id="bandeau0">
 
             <h1>Bienvenue sur le site de votre bibliothèque !</h1>
 
             <h3>Une version ReactJS de cette API est disponible <a href="http://vps671888.ovh.net:3000/login">ICI</a>
             </h3>
         </div>
+    </div>
+        <div class="row">
 
-        <div th:if="${!session.isEmpty()}">
 
-            <p>Vous êtes connecté en tant que <span th:text="${session.membrePrenom + ' ' + session.membreNom}"</p>
+
+
+        <div style="text-align: center" class="col-md-12" id="bandeau0">
+            <div th:if="${!session.isEmpty()}">
+
+                <p>Vous êtes connecté en tant que <span th:text="${session.membrePrenom + ' ' + session.membreNom} + ' 😄'"></span></p>
+
+            </div>
+
+
+            <img src="../img/accueil.jpg">
+            <br>
+
+
+            <h1> Site Web réalité par Julien Marcesse dans le cadre de son parcours Développeur d'Application Java</h1>
+            <div style="text-align: left">
+            <p> Projet 7, utilisant les technologies suivantes :</p>
+            <li> Spring Boot, Spring Data, Spring Security</li>
+            <li> API RestFul, Client OpenFeign</li>
+            <li> PostgreSql</li>
+            <li> JWT Authentication</li>
+            <li> CSS Boostrap</li>
+            </div>
+
 
         </div>
 
