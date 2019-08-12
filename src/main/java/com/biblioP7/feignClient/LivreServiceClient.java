@@ -15,6 +15,9 @@ public interface LivreServiceClient {
     @GetMapping(value="/api/Livre/listeLivres")
     List<Livre> listeLivres();
 
+    @GetMapping(value="/api/Livre/listeLivresDisponibles")
+    List<Livre> listeLivresDisponibles(@RequestHeader("Authorization") String token);
+
 
     @GetMapping(value="/api/Livre/nbLivres")
     Map<String, Integer> nbLivres();

@@ -13,7 +13,7 @@ import java.util.List;
 public interface LivreDao extends JpaRepository<Livre, Integer>{
 
     Livre findById(int it);
-    List<Livre> findLivresByDisponibleIsTrue();
+    List<Livre> findLivresByDisponibleIsTrueOrderById();
 
     @Query("Select c from Livre c where lower(unaccent(c.titre)) like ('%' || lower(unaccent(:titre)) || '%')")
     List<Livre> filtrerTitres(@Param("titre") String titre);

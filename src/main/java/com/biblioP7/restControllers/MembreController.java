@@ -26,7 +26,7 @@ public class MembreController {
     @CrossOrigin("*")
     @RequestMapping(value="/api/listeMembres", method= RequestMethod.GET)
     public List<Membre> listeMembres(){
-        List<Membre> membres = membreDao.findAll();
+        List<Membre> membres = membreDao.findAllByOrderByIdAsc();
         return membres;
     }
 
