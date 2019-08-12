@@ -59,6 +59,12 @@ public class EmpruntController {
         return emprunts;
     }
 
+    @RequestMapping(value="/api/listeEmpruntsEncours", method= RequestMethod.GET)
+    public List<Emprunt> listeEmpruntsEncours(){
+        List<Emprunt> emprunts = empruntDao.findEmpruntsEncours(false);
+        return emprunts;
+    }
+
     @CrossOrigin("*")
     @GetMapping(value="/api/Emprunt/{id}")
     public Emprunt detailEMprunt(@PathVariable int id){
@@ -72,7 +78,7 @@ public class EmpruntController {
 
         List<Emprunt> listeEmprunts = empruntDao.findEmpruntsByMembre(membre);
 
-        logger.warn("[REST] Une liste d'emprunt est demandée pour le membre " + membre.getEmail() + " et nous retournons les infos : " + listeEmprunts);
+        logger.warn("[REST] Une liste d'emprunt est demandée pour le membre " + membre.getEmail());
 
         return listeEmprunts;
     }

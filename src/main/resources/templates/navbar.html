@@ -24,12 +24,13 @@
         <li th:if="${session.isEmpty()}" class="nav-item">
             <a class="nav-link" href="/client/signUp">S'enregistrer</a>
         </li>
-        <li th:if="${!session.isEmpty()}" class="nav-item">
-            <a class="nav-link" href="/client/logout">Se déconnecter</a>
-        </li>
         <li th:if="${session.membreRole == 'ADMIN'}" class="nav-item" style="color:red">
             <a class="nav-link" href="/client/admin">Admin</a>
         </li>
+        <li th:if="${!session.isEmpty()}" class="nav-item">
+            <a class="nav-link" href="/client/logout">Se déconnecter</a>
+        </li>
+
     </ul>
 
 </nav>

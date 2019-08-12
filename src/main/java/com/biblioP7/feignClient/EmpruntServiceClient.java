@@ -15,6 +15,9 @@ public interface EmpruntServiceClient {
     @GetMapping(value="/api/listeEmprunts")
     List<Emprunt> listeEmprunts(@RequestHeader("Authorization") String token);
 
+    @GetMapping(value="/api/listeEmpruntsEncours")
+    List<Emprunt> listeEmpruntsEncours(@RequestHeader("Authorization") String token);
+
     @GetMapping(value="/api/EmpruntsMembre/{membreId}")
     List<Emprunt> empruntsParMembre(@RequestHeader("Authorization") String token, @PathVariable int membreId);
 

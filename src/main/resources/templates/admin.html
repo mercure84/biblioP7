@@ -1,10 +1,91 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="fr">
+<div th:include="bootstrapcdn.html"/>
 <head>
-    <meta charset="UTF-8">
-    <title>Page Administrateur</title>
-</head>
+    <head>
+        <meta charset="utf-8">
+        <title>Page Administrateur</title>
+    </head>
 <body>
 
+<!-- nav bar -->
+<div th:include="navbar"/>
+
+<div class="container">
+    <div class="row" id="bandeau0">
+        <div class="col-md-12">
+            <h2> Bienvenu sur la page Administrateur </h2>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-10">
+
+            <p>Cette interface peut servir à créer des emprunts ou à les supprimer : on peut imaginer qu'un employé de
+                la bibliothèque se connecte en tant qu'admin pour pouvoir enregistrer les emprunts et les
+                restitutions.</p>
+
+            <p>Attention l'outil est en version ALPHA : les saisies ne demandes pas de confirmation et sont validées
+                immédaitement</p>
+            <div th:if="${message != null}">
+                <p style="color:red">Le livre <span
+                        th:text="${livreRendu.getTitre() + ' ISBN ' + livreRendu.getIsbn() + ' a été restitué, pensez à le ranger dans la bibliothèque !'}"></span>
+                </p>
+
+                <p></p><a href="/client/admin">
+                <button>Recharger la page</button>
+            </a></div>
+        </div>
+
+        <div th:if="${message == null}" class="col-md-10">
+
+            <h2>Enregistrer un emprunt : </h2>
+
+
+            <h1> EN CONSTRUCTION </h1>
+
+
+        <h2>Restituer un emprunt : </h2>
+
+        <table style="margin-top: 10px" class="table">
+            <thead>
+            <tr>
+                <th>Emprunt n°</th>
+                <th>Date d'emprunt</th>
+                <th>Titre Livre + ISBN</th>
+                <th>Membre</th>
+                <th>Action</th>
+
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="ligneE : ${empruntsEncours}">
+                <td th:text="${ligneE.getId()}">Emprunt Id</td>
+                <td th:text="${#dates.format(ligneE.getDebutDate(), 'dd-MM-yyyy')}">StartDate</td>
+                <td th:text="${ligneE.getLivre().getTitre() + ' ' + ligneE.getLivre().getIsbn()}">Book</td>
+                <td th:text="${ligneE.membre.getPrenom() + ' ' + ligneE.getMembre().getNom()}">Livre</td>
+
+                <td><a th:href="${'/client/stopperEmprunt?empruntId='+ ligneE.getId()}">
+                    <button>Restituer</button>
+                </a></td>
+
+            </tr>
+            </tbody>
+        </table>
+
+
+
+
+    </div>
+    </div>
+
+</div>
+
+</div>
+
 </body>
+<div th:include="jscdn.html"/>
 </html>
