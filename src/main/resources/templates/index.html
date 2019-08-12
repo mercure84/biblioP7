@@ -25,17 +25,21 @@
 
 
 
-        <div style="text-align: center" class="col-md-12" id="bandeau0">
+        <div style="text-align: center" class="col-md-12" id="bandeau">
             <div th:if="${!session.isEmpty()}">
 
                 <p>Vous êtes connecté en tant que <span th:text="${session.membrePrenom + ' ' + session.membreNom} + ' 😄'"></span></p>
 
+                <p>Il y a actuellement : <span th:text="${nbLivres}"> NbLivres </span> dans la bibliothèques</p>
+                <p><span th:text="${nbLivresEmpruntes}">NbLivresEmpruntés</span> livres ont été emrpuntés !</p>
+                <p>Il reste <span th:text="${nbLivresDispo}">NbDispo</span> ouvrages disponibles :)</p>
             </div>
 
 
             <img src="../img/accueil.jpg">
             <br>
-
+            <br>
+            <div th:if="${session.isEmpty()}">
 
             <h1> Site Web réalité par Julien Marcesse dans le cadre de son parcours Développeur d'Application Java</h1>
             <div style="text-align: left">
@@ -46,7 +50,7 @@
             <li> JWT Authentication</li>
             <li> CSS Boostrap</li>
             </div>
-
+            </div>
 
         </div>
 

@@ -51,7 +51,7 @@ public class SignInController {
             JwtRequest jwtRequest = new JwtRequest();
             jwtRequest.setPassword(login.getPassword());
             jwtRequest.setUsername(login.getEmail());
-            ResponseEntity<?> reponseAuth = membreServiceClient.login(jwtRequest);
+            ResponseEntity reponseAuth = membreServiceClient.login(jwtRequest);
 
             if (reponseAuth.getStatusCode().value() == 200) {
 
@@ -71,6 +71,7 @@ public class SignInController {
                 session.setAttribute("membreEmail", membre.getEmail());
                 session.setAttribute("membreId", membre.getId());
                 session.setAttribute("membre", membre);
+                session.setAttribute("membreRole", membre.getRole());
 
                 return "redirect:/client";
 
