@@ -35,9 +35,14 @@ public class AdminController {
     LivreServiceClient livreServiceClient;
 
     @GetMapping("/client/admin")
-    public String afficherPageAdmin(HttpSession session, Model model){
+    public String afficherPageAdmin(HttpSession session, Model model, String batchMessage){
 
         String token = session.getAttribute("token").toString();
+
+        if(batchMessage!=null){
+            model.addAttribute("batchMessage", true);}
+        else {
+            model.addAttribute("batchMessage", false);}
 
         //on charge la liste des emprunts en cours
         List<Emprunt> empruntsEnCours = empruntServiceClient.listeEmpruntsEncours(token);
@@ -73,8 +78,9 @@ public class AdminController {
             String message = "Le livre " + livreRendu.getTitre() + " a bien été restitué, pensez à le ranger dans la bibliothèque !";
             model.addAttribute("livreRendu", livreRendu);
             model.addAttribute("message", message);
+        }
 
-        } catch (Exception e){
+         catch (Exception e){
             logger.error("Erreur :" + e);
             return null;
 
@@ -82,6 +88,15 @@ public class AdminController {
         return "admin";
 
 
+    }
+
+    @GetMapping("/client/admin/batch")
+    public String lancerBatch(HttpSession session){
+        String token = session.getAttribute("token").toString();
+
+        empruntServiceClient.lancerBatch(token);
+
+        return "redirect:/client/admin?batchMessage=oui";
     }
 
 

@@ -29,6 +29,11 @@
 
             <p>Attention l'outil est en version ALPHA : les saisies ne demandes pas de confirmation et sont validées
                 immédiatement</p>
+
+            <a th:href="@{/client/admin/batch}"><button>Lancer le batch des emprunts échus !</button></a>
+            <p th:if="${batchMessage}" style="color:orange">Le batch a édité un fichier texte disponible à la racine du projet</p>
+
+
             <div th:if="${message != null}">
                 <p style="color:red"><span
                         th:text="${message}"></span>
@@ -97,8 +102,6 @@
                 <th>Titre Livre + ISBN</th>
                 <th>Membre</th>
                 <th>Action</th>
-
-
             </tr>
             </thead>
             <tbody>

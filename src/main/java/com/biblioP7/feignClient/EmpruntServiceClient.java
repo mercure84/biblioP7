@@ -41,6 +41,9 @@ public interface EmpruntServiceClient {
     @GetMapping(value="/api/listeEmpruntsExpires")
     List<Emprunt> empruntsExpires (@RequestHeader("Authorization") String token);
 
+    @GetMapping(value="/api/runBatch")
+    String lancerBatch(@RequestHeader("Authorization") String token);
+
 
 
 }
