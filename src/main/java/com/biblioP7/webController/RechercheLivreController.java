@@ -21,10 +21,22 @@ public class RechercheLivreController {
     LivreServiceClient livreServiceClient;
 
     @GetMapping("/client/recherche")
-    public String  afficherRecherche(Model model, HttpSession session) {
+    public String  afficherRecherche(Model model, HttpSession session, String all) {
         model.addAttribute("filtre", new FiltreRecherche());
         model.addAttribute("afficherResultat", false);
+
+        if(all != null && all.equals("oui")) {
+
+            String token = session.getAttribute("token").toString();
+
+            List<Livre> allBooks = livreServiceClient.listeLivres(token);
+            model.addAttribute("allBooks", allBooks);
+            model.addAttribute("afficherTout", true);
+        }
+
+
         return "recherche";
+
 
         }
 
@@ -33,14 +45,12 @@ public class RechercheLivreController {
      public String rechercherLivre(@ModelAttribute FiltreRecherche filtre, Model model, HttpSession session){
 
          String token = session.getAttribute("token").toString();
-
          List<Livre> resultat = livreServiceClient.filtrerLivres(token, filtre.getType(), filtre.getChamps());
          model.addAttribute("resultat", resultat);
          model.addAttribute("filtre", new FiltreRecherche());
          model.addAttribute("afficherResultat", true);
          return "recherche";
      }
-
 
 
 

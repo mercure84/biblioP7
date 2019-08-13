@@ -57,6 +57,8 @@
             <button>Rechercher</button>
         </form>
     </div>
+    <br>
+
 
     <div th:if="${afficherResultat}" class="row">
 
@@ -77,13 +79,42 @@
                 <td th:text="${ligneL.getTitre()}">Nom Livre</td>
                 <td th:text="${ligneL.getAuteurNom() + ' ' + ligneL.getAuteurPrenom()}">Auteur</td>
                 <td th:text="${ligneL.getEditeur()}">Editeur</td>
-                <td th:text="${ligneL.isDisponible()}">Dispo</td>
+                <td th:text="${ligneL.isDisponible()?'Oui':'Non'}"
+                    th:style="${ligneL.isDisponible()? 'color:green':'color:red'}">Dispo</td>
             </tr>
             </tbody>
         </table>
     </div>
+    <br>
+    <p><a href="/client/recherche?all=oui">
+        <button>Afficher tous les livres de la bibliothèque</button>
+    </a></p>
+
+    <div th:if="${afficherTout}" class="row">
+
+        <h2> Voici tous les livres de votre bibliothèque : </h2>
+
+        <table style="margin-top: 10px" class="table">
+            <thead>
+            <tr>
+                <th>Titre</th>
+                <th>Auteur</th>
+                <th>Editeur</th>
+                <th>Disponible</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="ligneT : ${allBooks}">
+                <td th:text="${ligneT.getTitre()}">Nom Livre</td>
+                <td th:text="${ligneT.getAuteurNom() + ' ' + ligneT.getAuteurPrenom()}">Auteur</td>
+                <td th:text="${ligneT.getEditeur()}">Editeur</td>
+                <td th:text="${ligneT.isDisponible()?'Oui':'Non'}"
+                    th:style="${ligneT.isDisponible()? 'color:green':'color:red'}">Dispo</td>            </tr>
+            </tbody>
+        </table>
 
 
-</div>
+    </div>
 </body>
 </html>

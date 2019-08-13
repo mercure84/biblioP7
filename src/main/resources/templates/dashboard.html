@@ -41,7 +41,7 @@
 
                 </tr></thead>
                 <tbody>
-                <tr  th:each="ligneE : ${listeEmprunts}">
+                <tr th:each="ligneE : ${listeEmprunts}" th:style="${ligneE.isRendu()}? 'color:red' : 'color:green'">
                     <td th:text="${ligneE.getLivre().getTitre()}">Nom Topo</td>
                     <td th:text="${#dates.format(ligneE.getDebutDate(), 'dd-MM-yyyy')}">StartDate</td>
                     <td th:text="${#dates.format(ligneE.getFinDate(), 'dd-MM-yyyy')}">EndDate</td>
