@@ -1,7 +1,7 @@
 #Bienvenue dans mon Projet 7 du Parcours Développeur d'Application Java (OpenClassrooms).
 
 
-Le projet est actuellement déployé sur mon serveur privé virtuel d'OVH. L'URL est la suivante : http://vps671888.ovh.net:8080/
+Le projet est actuellement déployé sur mon serveur privé virtuel d'OVH. L'URL est la suivante : xxxx
 
 Vous pouvez tester l'application sans risque avec le login test@test.com et le mdp : test.
  
